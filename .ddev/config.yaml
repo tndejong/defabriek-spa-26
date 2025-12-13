@@ -1,0 +1,23 @@
+name: de-fabriek-26
+type: generic
+docroot: ""
+php_version: "8.3"
+nodejs_version: "22"
+webserver_type: generic
+omit_containers: [db, dba]
+corepack_enable: true
+
+web_extra_exposed_ports:
+  - name: vite
+    container_port: 5173
+    http_port: 80
+    https_port: 443
+
+web_extra_daemons:
+  - name: "vite-dev"
+    command: "npm run dev -- --host 0.0.0.0"
+    directory: /var/www/html
+
+hooks:
+  post-start:
+    - exec: npm install
