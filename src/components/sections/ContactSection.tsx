@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, Clock, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import { Mail, MapPin, Send, MessageCircle, Instagram, Facebook } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
