@@ -2,7 +2,8 @@
 set -e
 
 # De Fabriek - Forge deployment script
-# Draait in de project root na git pull
+# Draait in $FORGE_RELEASE_DIRECTORY (zero-downtime deployments)
+# Daemon restart gebeurt in het hoofdscript na $ACTIVATE_RELEASE()
 
 echo "📦 Installing dependencies..."
 npm install
@@ -10,7 +11,4 @@ npm install
 echo "🔨 Building frontend..."
 npm run build
 
-echo "♻️  Restarting API daemon..."
-sudo supervisorctl restart de-fabriek-api 2>/dev/null || echo "⚠️  Daemon restart skipped (check name in Forge)"
-
-echo "✅ Deployment complete"
+echo "✅ Build complete"
