@@ -12,17 +12,20 @@ interface ContactSectionProps {
 
 const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    subject: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const content = {
     nl: {
       title: 'Contact Ons',
       subtitle: 'We horen graag van je',
-      description: 'Heb je vragen over onze lessen, wil je lid worden, of heb je andere vragen? Neem gerust contact met ons op. We reageren meestal binnen 24 uur.',
+      description: 'Heb je vragen over onze lessen, wil je vrijwilliger worden, of heb je andere vragen? Neem gerust contact met ons op. We reageren meestal binnen 24 uur.',
       contact: [
         {
           icon: Mail,
@@ -48,18 +51,20 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
         {
           icon: MapPin,
           title: 'Locatie',
-          content: 'Enschede, Nederland',
-          description: 'Kom langs voor een bezoek!',
+          content: 'Hogebothofstraat 49, Enschede',
+          description: 'Kom gewoon langs op openingsdagen!',
           link: null
         }
       ],
       form: {
-        title: 'Stuur ons een bericht',
-        name: 'Naam',
-        email: 'Email',
-        subject: 'Onderwerp',
-        message: 'Bericht',
-        submit: 'Verstuur Bericht'
+        title: 'Verstuur naar Info@defabriek',
+        firstName: 'Voornaam',
+        lastName: 'Achternaam',
+        email: 'Email adres',
+        message: 'Vraag',
+        submit: 'Verstuur',
+        success: 'Bericht verzonden! We nemen zo snel mogelijk contact op.',
+        error: 'Er ging iets mis. Probeer het later opnieuw of mail naar info@defabriek.org.'
       },
       faq: {
         title: 'Veelgestelde Vragen',
@@ -77,8 +82,12 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
             answer: 'Nee, we verhuren skateboards en beschermingsmateriaal tijdens de lessen. Je kunt ook je eigen materiaal meenemen.'
           },
           {
-            question: 'Kan ik lid worden zonder lessen te volgen?',
-            answer: 'Natuurlijk! We hebben verschillende lidmaatschapsopties voor mensen die alleen gebruik willen maken van het park.'
+            question: 'Kan ik lid worden?',
+            answer: 'We gaan binnenkort starten met lidmaatschappen en willen graag de animo peilen. Laat van je horen als je geïnteresseerd bent! Je kunt je ook aanmelden als vrijwilliger.'
+          },
+          {
+            question: 'Kan ik vrijwilliger worden?',
+            answer: 'Ja! We zijn altijd op zoek naar vrijwilligers. Neem contact met ons op als je wilt helpen.'
           }
         ]
       }
@@ -86,7 +95,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
     en: {
       title: 'Contact Us',
       subtitle: 'We\'d love to hear from you',
-      description: 'Do you have questions about our lessons, want to become a member, or have other questions? Feel free to contact us. We usually respond within 24 hours.',
+      description: 'Do you have questions about our lessons, want to become a volunteer, or have other questions? Feel free to contact us. We usually respond within 24 hours.',
       contact: [
         {
           icon: Mail,
@@ -112,18 +121,20 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
         {
           icon: MapPin,
           title: 'Location',
-          content: 'Enschede, Netherlands',
-          description: 'Come visit us!',
+          content: 'Hogebothofstraat 49, Enschede',
+          description: 'Just drop in on opening days!',
           link: null
         }
       ],
       form: {
-        title: 'Send us a message',
-        name: 'Name',
-        email: 'Email',
-        subject: 'Subject',
-        message: 'Message',
-        submit: 'Send Message'
+        title: 'Send to Info@defabriek',
+        firstName: 'First name',
+        lastName: 'Last name',
+        email: 'Email address',
+        message: 'Question',
+        submit: 'Send',
+        success: 'Message sent! We will get back to you as soon as possible.',
+        error: 'Something went wrong. Please try again later or email info@defabriek.org.'
       },
       faq: {
         title: 'Frequently Asked Questions',
@@ -141,8 +152,12 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
             answer: 'No, we rent skateboards and protective gear during lessons. You can also bring your own equipment.'
           },
           {
-            question: 'Can I become a member without taking lessons?',
-            answer: 'Of course! We have different membership options for people who only want to use the park.'
+            question: 'Can I become a member?',
+            answer: 'We\'re going to start offering memberships soon and want to gauge the interest. Let us know if you\'re interested! You can also sign up as a volunteer.'
+          },
+          {
+            question: 'Can I become a volunteer?',
+            answer: 'Yes! We\'re always looking for volunteers. Get in touch if you\'d like to help.'
           }
         ]
       }
@@ -150,7 +165,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
     de: {
       title: 'Kontaktieren Sie uns',
       subtitle: 'Wir freuen uns von Ihnen zu hören',
-      description: 'Haben Sie Fragen zu unseren Lektionen, möchten Sie Mitglied werden oder haben andere Fragen? Zögern Sie nicht, uns zu kontaktieren. Wir antworten normalerweise innerhalb von 24 Stunden.',
+      description: 'Haben Sie Fragen zu unseren Lektionen, möchten Sie Freiwilliger werden oder haben andere Fragen? Zögern Sie nicht, uns zu kontaktieren. Wir antworten normalerweise innerhalb von 24 Stunden.',
       contact: [
         {
           icon: Mail,
@@ -176,18 +191,20 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
         {
           icon: MapPin,
           title: 'Standort',
-          content: 'Enschede, Niederlande',
-          description: 'Besuchen Sie uns!',
+          content: 'Hogebothofstraat 49, Enschede',
+          description: 'Einfach an Öffnungstagen vorbeikommen!',
           link: null
         }
       ],
       form: {
-        title: 'Senden Sie uns eine Nachricht',
-        name: 'Name',
-        email: 'Email',
-        subject: 'Betreff',
-        message: 'Nachricht',
-        submit: 'Nachricht Senden'
+        title: 'An Info@defabriek senden',
+        firstName: 'Vorname',
+        lastName: 'Nachname',
+        email: 'E-Mail-Adresse',
+        message: 'Frage',
+        submit: 'Senden',
+        success: 'Nachricht gesendet! Wir melden uns so schnell wie möglich.',
+        error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut oder mailen Sie an info@defabriek.org.'
       },
       faq: {
         title: 'Häufig Gestellte Fragen',
@@ -205,8 +222,12 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
             answer: 'Nein, wir vermieten Skateboards und Schutzausrüstung während der Lektionen. Sie können auch Ihre eigene Ausrüstung mitbringen.'
           },
           {
-            question: 'Kann ich Mitglied werden, ohne Lektionen zu nehmen?',
-            answer: 'Natürlich! Wir haben verschiedene Mitgliedschaftsoptionen für Leute, die nur den Park nutzen möchten.'
+            question: 'Kann ich Mitglied werden?',
+            answer: 'Wir werden bald mit Mitgliedschaften starten und möchten das Interesse erfahren. Melden Sie sich, wenn Sie interessiert sind! Sie können sich auch als Freiwilliger anmelden.'
+          },
+          {
+            question: 'Kann ich Freiwilliger werden?',
+            answer: 'Ja! Wir suchen immer Freiwillige. Nehmen Sie Kontakt mit uns auf, wenn Sie helfen möchten.'
           }
         ]
       }
@@ -222,10 +243,46 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`.trim(),
+          email: formData.email,
+          subject: 'Contactformulier',
+          message: formData.message,
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setSubmitStatus('success');
+        setFormData({ firstName: '', lastName: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+        setErrorMessage(data?.details || data?.error || '');
+      }
+    } catch (err) {
+      clearTimeout(timeoutId);
+      setSubmitStatus('error');
+      const msg = err instanceof Error ? err.message : 'Network error';
+      setErrorMessage(
+        msg === 'The operation was aborted.' || (err instanceof Error && err.name === 'AbortError')
+          ? 'Timeout – server reageert niet. Controleer of de server draait.'
+          : msg
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -327,12 +384,12 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-2">
-                        {text.form.name}
+                        {text.form.firstName}
                       </label>
                       <input
                         type="text"
-                        name="name"
-                        value={formData.name}
+                        name="firstName"
+                        value={formData.firstName}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                         required
@@ -340,12 +397,12 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-2">
-                        {text.form.email}
+                        {text.form.lastName}
                       </label>
                       <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                         required
@@ -355,12 +412,12 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
 
                   <div>
                     <label className="block text-sm font-medium text-neutral-700 mb-2">
-                      {text.form.subject}
+                      {text.form.email}
                     </label>
                     <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
+                      type="email"
+                      name="email"
+                      value={formData.email}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                       required
@@ -381,9 +438,20 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
                     />
                   </div>
 
-                  <Button type="submit" className="w-full btn-primary text-lg py-4">
+                  {submitStatus === 'success' && (
+                    <p className="text-green-600 text-sm font-medium">{text.form.success}</p>
+                  )}
+                  {submitStatus === 'error' && (
+                    <div className="text-red-600 text-sm font-medium">
+                      <p>{text.form.error}</p>
+                      {errorMessage && (
+                        <p className="mt-2 text-xs font-mono bg-red-50 p-2 rounded">{errorMessage}</p>
+                      )}
+                    </div>
+                  )}
+                  <Button type="submit" className="w-full btn-primary text-lg py-4" disabled={isSubmitting}>
                     <Send className="w-5 h-5 mr-2" />
-                    {text.form.submit}
+                    {isSubmitting ? (language === 'nl' ? 'Versturen...' : language === 'de' ? 'Senden...' : 'Sending...') : text.form.submit}
                   </Button>
                 </form>
               </CardContent>

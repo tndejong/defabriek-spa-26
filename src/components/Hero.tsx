@@ -16,28 +16,31 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
 
   const content = {
     nl: {
-      title: 'Welkom bij De Fabriek',
-      subtitle: 'Het skatepark waar iedereen thuis is',
-      description: 'Ontdek Enschede\'s meest inclusieve skatepark. Van beginners tot professionals, iedereen is welkom om te skaten, leren en groeien.',
+      titleIntro: 'Welkom bij',
+      titleBrand: 'De Fabriek',
+      subtitle: 'Het gezelligste skatepark van Nederland',
+      description: 'Op openingsdagen ben je altijd vrijblijvend welkom. Kom gewoon langs tegen een kleine entree – geen reservering nodig. Van beginners tot professionals, iedereen is welkom om te skaten, leren en groeien.',
       cta: 'Ontdek het Park',
       secondaryCta: 'Bekijk Video',
-      badges: ['Toegang vanaf €7', 'Professionele Coaching', 'Inclusief voor Allen']
+      badges: ['Vrijblijvend toegankelijk', 'Entree vanaf €7', 'Geen reservering nodig']
     },
     en: {
-      title: 'Welcome to De Fabriek',
-      subtitle: 'The skatepark where everyone belongs',
-      description: 'Discover Enschede\'s most inclusive skatepark. From beginners to professionals, everyone is welcome to skate, learn and grow.',
+      titleIntro: 'Welcome to',
+      titleBrand: 'De Fabriek',
+      subtitle: 'The friendliest skatepark in the Netherlands',
+      description: 'On opening days you\'re always welcome to drop in. Just come by for a small entrance fee – no reservation needed. From beginners to professionals, everyone is welcome to skate, learn and grow.',
       cta: 'Explore the Park',
       secondaryCta: 'Watch Video',
-      badges: ['Access from €7', 'Professional Coaching', 'Inclusive for All']
+      badges: ['Freely accessible', 'Entrance from €7', 'No reservation needed']
     },
     de: {
-      title: 'Willkommen bei De Fabriek',
-      subtitle: 'Der Skatepark, wo jeder hingehört',
-      description: 'Entdecken Sie Enschede\'s inklusivstes Skatepark. Von Anfängern bis Profis, jeder ist willkommen zu skaten, zu lernen und zu wachsen.',
+      titleIntro: 'Willkommen bei',
+      titleBrand: 'De Fabriek',
+      subtitle: 'Das gemütlichste Skatepark der Niederlande',
+      description: 'An Öffnungstagen sind Sie immer unverbindlich willkommen. Kommen Sie einfach vorbei gegen einen kleinen Eintritt – keine Reservierung nötig. Von Anfängern bis Profis, jeder ist willkommen zu skaten, zu lernen und zu wachsen.',
       cta: 'Park Entdecken',
       secondaryCta: 'Video Ansehen',
-      badges: ['Eintritt ab €7', 'Professionelles Coaching', 'Inklusiv für Alle']
+      badges: ['Unverbindlich zugänglich', 'Eintritt ab €7', 'Keine Reservierung nötig']
     }
   };
 
@@ -77,7 +80,8 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
           >
-            <span className="text-gradient">{text.title}</span>
+            <span className="text-gradient block">{text.titleIntro}</span>
+            <span className="text-gradient block">{text.titleBrand}</span>
           </motion.h1>
 
           {/* Subtitle */}

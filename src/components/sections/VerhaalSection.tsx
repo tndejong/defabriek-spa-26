@@ -26,13 +26,13 @@ const VerhaalSection: React.FC<VerhaalSectionProps> = ({ language }) => {
       },
       origin: {
         title: 'Hoe het begon',
-        text: 'De Fabriek is in 2001 ontstaan uit een initiatief van een groep skateboarders in Enschede die de kans zagen om de skateboarders als een groep bij elkaar te brengen en samen een kans te creëren waar ze samen hun sport konden beoefenen. Vervolgens hebben ze een kleinschalig, zelfbetaald indoor skatepark opgezet en daar een jaar doorgebracht. Toen dit park niet meer mogelijk was, besloot een aantal van die mensen een vereniging op te richten om het skateboarden klimaat in Enschede en omstreken te promoten en te verbeteren. Zo ontstond op 19 februari 2002 skateboardclub De Fabriek.'
+        text: 'De Fabriek is in 2001 ontstaan uit een initiatief van een groep skateboarders in Enschede die de kans zagen om de skateboarders als een groep bij elkaar te brengen en samen een kans te creëren waar ze samen hun sport konden beoefenen. Vervolgens hebben ze een kleinschalig, zelfbetaald indoor skatepark opgezet en daar een jaar doorgebracht. Toen dit park niet meer mogelijk was, besloot een aantal van die mensen een vereniging op te richten om het skateboarden klimaat in Enschede en omstreken te promoten en te verbeteren. Zo ontstond op 19 februari 2002 de vereniging De Fabriek.'
       },
       timeline: [
         {
           year: '2002',
           title: 'Oprichting',
-          description: 'Op 19 februari 2002 wordt skateboardclub De Fabriek officieel opgericht door een groep enthousiaste skateboarders.'
+          description: 'Op 19 februari 2002 wordt de vereniging De Fabriek officieel opgericht door een groep enthousiaste skateboarders.'
         },
         {
           year: '2010',
@@ -95,13 +95,13 @@ const VerhaalSection: React.FC<VerhaalSectionProps> = ({ language }) => {
       },
       origin: {
         title: 'How it started',
-        text: 'De Fabriek was created in 2001 from an initiative of a group of skateboarders in Enschede who saw the opportunity to bring skateboarders together as a group and create a chance where they could practice their sport together. They set up a small-scale, self-funded indoor skatepark and spent a year there. When this park was no longer possible, some of those people decided to start an association to promote and improve the skateboarding climate in Enschede and surroundings. This is how skateboard club De Fabriek was founded on February 19, 2002.'
+        text: 'De Fabriek was created in 2001 from an initiative of a group of skateboarders in Enschede who saw the opportunity to bring skateboarders together as a group and create a chance where they could practice their sport together. They set up a small-scale, self-funded indoor skatepark and spent a year there. When this park was no longer possible, some of those people decided to start an association to promote and improve the skateboarding climate in Enschede and surroundings. This is how the association De Fabriek was founded on February 19, 2002.'
       },
       timeline: [
         {
           year: '2002',
           title: 'Foundation',
-          description: 'On February 19, 2002, skateboard club De Fabriek was officially founded by a group of enthusiastic skateboarders.'
+          description: 'On February 19, 2002, the association De Fabriek was officially founded by a group of enthusiastic skateboarders.'
         },
         {
           year: '2010',
@@ -164,13 +164,13 @@ const VerhaalSection: React.FC<VerhaalSectionProps> = ({ language }) => {
       },
       origin: {
         title: 'Wie es begann',
-        text: 'De Fabriek entstand 2001 aus einer Initiative einer Gruppe von Skateboardern in Enschede, die die Chance sahen, Skateboarder als Gruppe zusammenzubringen und gemeinsam eine Möglichkeit zu schaffen, ihren Sport auszuüben. Sie bauten einen kleinen, selbstfinanzierten Indoor-Skatepark auf und verbrachten dort ein Jahr. Als dieser Park nicht mehr möglich war, beschloss eine Gruppe, einen Verein zu gründen, um das Skateboard-Klima in Enschede und Umgebung zu fördern und zu verbessern. So entstand am 19. Februar 2002 der Skateboardclub De Fabriek.'
+        text: 'De Fabriek entstand 2001 aus einer Initiative einer Gruppe von Skateboardern in Enschede, die die Chance sahen, Skateboarder als Gruppe zusammenzubringen und gemeinsam eine Möglichkeit zu schaffen, ihren Sport auszuüben. Sie bauten einen kleinen, selbstfinanzierten Indoor-Skatepark auf und verbrachten dort ein Jahr. Als dieser Park nicht mehr möglich war, beschloss eine Gruppe, einen Verein zu gründen, um das Skateboard-Klima in Enschede und Umgebung zu fördern und zu verbessern. So entstand am 19. Februar 2002 der Verein De Fabriek.'
       },
       timeline: [
         {
           year: '2002',
           title: 'Gründung',
-          description: 'Am 19. Februar 2002 wird der Skateboardclub De Fabriek offiziell von einer Gruppe enthusiastischer Skateboarder gegründet.'
+          description: 'Am 19. Februar 2002 wird der Verein De Fabriek offiziell von einer Gruppe enthusiastischer Skateboarder gegründet.'
         },
         {
           year: '2010',

@@ -15,11 +15,12 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
     nl: {
       title: 'Skateboard Lessen',
       subtitle: 'Leer skaten bij Fresh Skateschool',
-      description: 'De skateboard lessen bij De Fabriek worden verzorgd door Fresh Skateschool - dé skateschool van Twente. Of je nu beginner bent of je skills wilt verbeteren, bij Fresh ben je aan het juiste adres.',
+      description: 'Er worden lessen in ons park aangeboden door Fresh Skateschool. Voor meer informatie over lessen en tijden kun je mailen naar info@freshskateschool.nl',
       partner: {
         name: 'Fresh Skateschool',
         tagline: 'Dé skateschool van Twente',
-        description: 'Fresh Skateschool biedt professionele skateboard lessen voor alle niveaus. Met ervaren instructeurs leer je in een veilige omgeving alle technieken die je nodig hebt.'
+        description: 'Voor meer informatie over lessen en tijden kun je mailen naar info@freshskateschool.nl',
+        email: 'info@freshskateschool.nl'
       },
       seasons: [
         {
@@ -58,7 +59,6 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
         'Geschikt voor alle niveaus',
         'Ervaren professionele instructeurs',
         'Veilige leeromgeving',
-        'Helm verplicht onder 12 jaar',
         'Bescherming wordt aangeraden',
         'Skateboards beschikbaar'
       ],
@@ -69,11 +69,12 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
     en: {
       title: 'Skateboard Lessons',
       subtitle: 'Learn to skate at Fresh Skateschool',
-      description: 'Skateboard lessons at De Fabriek are provided by Fresh Skateschool - the skateschool of Twente. Whether you\'re a beginner or want to improve your skills, Fresh is the right place for you.',
+      description: 'Lessons in our park are offered by Fresh Skateschool. For more information about lessons and times, email info@freshskateschool.nl',
       partner: {
         name: 'Fresh Skateschool',
         tagline: 'The skateschool of Twente',
-        description: 'Fresh Skateschool offers professional skateboard lessons for all levels. With experienced instructors, you\'ll learn all the techniques you need in a safe environment.'
+        description: 'For more information about lessons and times, email info@freshskateschool.nl',
+        email: 'info@freshskateschool.nl'
       },
       seasons: [
         {
@@ -112,7 +113,6 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
         'Suitable for all levels',
         'Experienced professional instructors',
         'Safe learning environment',
-        'Helmet mandatory under 12 years',
         'Protective gear recommended',
         'Skateboards available'
       ],
@@ -123,11 +123,12 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
     de: {
       title: 'Skateboard Unterricht',
       subtitle: 'Lerne Skaten bei Fresh Skateschool',
-      description: 'Der Skateboard-Unterricht bei De Fabriek wird von Fresh Skateschool angeboten - die Skateschool von Twente. Ob Anfänger oder Fortgeschrittener, bei Fresh bist du richtig.',
+      description: 'Der Unterricht in unserem Park wird von Fresh Skateschool angeboten. Für weitere Informationen zu Lektionen und Zeiten kannst du eine E-Mail an info@freshskateschool.nl senden.',
       partner: {
         name: 'Fresh Skateschool',
         tagline: 'Die Skateschool von Twente',
-        description: 'Fresh Skateschool bietet professionellen Skateboard-Unterricht für alle Niveaus. Mit erfahrenen Instruktoren lernst du alle Techniken in einer sicheren Umgebung.'
+        description: 'Für weitere Informationen zu Lektionen und Zeiten kannst du eine E-Mail an info@freshskateschool.nl senden.',
+        email: 'info@freshskateschool.nl'
       },
       seasons: [
         {
@@ -166,7 +167,6 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
         'Geeignet für alle Niveaus',
         'Erfahrene professionelle Instruktoren',
         'Sichere Lernumgebung',
-        'Helm Pflicht unter 12 Jahren',
         'Schutzausrüstung empfohlen',
         'Skateboards verfügbar'
       ],
@@ -229,9 +229,16 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
                   <p className="text-primary-600 font-medium text-lg mb-4">
                     {text.partner.tagline}
                   </p>
-                  <p className="text-neutral-600 leading-relaxed max-w-2xl">
+                  <p className="text-neutral-600 leading-relaxed max-w-2xl mb-4">
                     {text.partner.description}
                   </p>
+                  <Button className="btn-primary" asChild>
+                    <a href={`mailto:${text.partner.email}`}>
+                      {language === 'nl' && 'Mail Fresh Skateschool'}
+                      {language === 'en' && 'Email Fresh Skateschool'}
+                      {language === 'de' && 'Fresh Skateschool mailen'}
+                    </a>
+                  </Button>
                 </div>
               </div>
             </CardContent>

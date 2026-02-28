@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import type { Language } from '../App';
@@ -89,20 +89,20 @@ const Navigation: React.FC<NavigationProps> = ({
 
             {/* Language Switcher & Mobile Menu */}
             <div className="flex items-center space-x-4">
-              {/* Language Switcher */}
-              <div className="hidden sm:flex items-center space-x-2">
-                {languages.map((lang) => (
-                  <Button
-                    key={lang.code}
-                    variant={language === lang.code ? 'default' : 'ghost'}
-                    size="sm"
-                    onClick={() => onLanguageChange(lang.code)}
-                    className="px-3 py-1 text-xs"
-                  >
-                    <span className="mr-1">{lang.flag}</span>
-                    {lang.name}
-                  </Button>
-                ))}
+              {/* Language Switcher - Dropdown */}
+              <div className="hidden sm:block relative">
+                <select
+                  value={language}
+                  onChange={(e) => onLanguageChange(e.target.value as Language)}
+                  className="appearance-none bg-white/80 border border-neutral-200 rounded-lg pl-3 pr-8 py-2 text-sm font-medium text-neutral-700 hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent cursor-pointer min-w-[5rem]"
+                >
+                  {languages.map((lang) => (
+                    <option key={lang.code} value={lang.code}>
+                      {lang.flag} {lang.name}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 pointer-events-none" />
               </div>
 
               {/* Mobile Menu Button */}
@@ -130,23 +130,24 @@ const Navigation: React.FC<NavigationProps> = ({
             className="fixed top-16 left-0 right-0 z-40 glass backdrop-blur-xl bg-white/95 border-b border-white/20 md:hidden"
           >
             <div className="px-4 py-6 space-y-4">
-              {/* Mobile Language Switcher */}
-              <div className="flex justify-center space-x-2 mb-6">
-                {languages.map((lang) => (
-                  <Button
-                    key={lang.code}
-                    variant={language === lang.code ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => {
-                      onLanguageChange(lang.code);
-                      setIsMenuOpen(false);
-                    }}
-                    className="px-4 py-2"
-                  >
-                    <span className="mr-2">{lang.flag}</span>
-                    {lang.name}
-                  </Button>
-                ))}
+              {/* Mobile Language Switcher - Dropdown */}
+              <div className="mb-6">
+                <label htmlFor="mobile-lang" className="sr-only">Taal</label>
+                <select
+                  id="mobile-lang"
+                  value={language}
+                  onChange={(e) => {
+                    onLanguageChange(e.target.value as Language);
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full appearance-none bg-neutral-50 border border-neutral-300 rounded-lg px-4 py-3 text-base font-medium text-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                >
+                  {languages.map((lang) => (
+                    <option key={lang.code} value={lang.code}>
+                      {lang.flag} {lang.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               {/* Mobile Navigation Items */}

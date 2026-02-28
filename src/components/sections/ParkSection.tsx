@@ -63,9 +63,9 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
 
   const content = {
     nl: {
-      title: 'Ontdek Ons Skatepark',
-      subtitle: 'Een moderne faciliteit voor elke skateboarder',
-      description: 'Ons skatepark is ontworpen met zorg en expertise. Van gladde oppervlakken tot uitdagende obstakels, we bieden de perfecte omgeving voor skaten op elk niveau.',
+      title: 'Park',
+      subtitle: 'Hogebothofstraat 49, Enschede',
+      description: 'Op openingsdagen ben je altijd vrijblijvend welkom. Kom gewoon langs tegen een kleine entree – geen reservering nodig. Ons skatepark biedt de perfecte omgeving voor skaten op elk niveau.',
       galleryTitle: 'Bekijk Ons Park',
       features: [
         {
@@ -75,8 +75,8 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
         },
         {
           icon: Clock,
-          title: '5 Dagen Open',
-          description: '5 dagen per week geopend met flexibele openingstijden.'
+          title: 'Vrijblijvend Toegankelijk',
+          description: 'Op openingsdagen ben je altijd welkom. Kom gewoon langs tegen een kleine entree.'
         },
         {
           icon: Award,
@@ -95,12 +95,12 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
         { number: '1000+', label: 'Square Meters' },
         { number: '50+', label: 'Evenementen per Jaar' }
       ],
-      cta: 'Plan je Bezoek'
+      cta: 'Bekijk Openingstijden'
     },
     en: {
-      title: 'Discover Our Skatepark',
-      subtitle: 'A modern facility for every skateboarder',
-      description: 'Our skatepark is designed with care and expertise. From smooth surfaces to challenging obstacles, we provide the perfect environment for skating at every level.',
+      title: 'Park',
+      subtitle: 'Hogebothofstraat 49, Enschede',
+      description: 'On opening days you\'re always welcome to drop in. Just come by for a small entrance fee – no reservation needed. Our skatepark provides the perfect environment for skating at every level.',
       galleryTitle: 'View Our Park',
       features: [
         {
@@ -110,8 +110,8 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
         },
         {
           icon: Clock,
-          title: 'Open 5 Days',
-          description: 'Open 5 days a week with flexible opening hours.'
+          title: 'Freely Accessible',
+          description: 'On opening days you\'re always welcome. Just drop in for a small entrance fee.'
         },
         {
           icon: Award,
@@ -130,12 +130,12 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
         { number: '1000+', label: 'Square Meters' },
         { number: '50+', label: 'Events per Year' }
       ],
-      cta: 'Plan Your Visit'
+      cta: 'View Opening Hours'
     },
     de: {
-      title: 'Entdecken Sie Unser Skatepark',
-      subtitle: 'Eine moderne Einrichtung für jeden Skateboarder',
-      description: 'Unser Skatepark wurde mit Sorgfalt und Fachwissen entworfen. Von glatten Oberflächen bis hin zu herausfordernden Hindernissen bieten wir die perfekte Umgebung zum Skaten auf jedem Niveau.',
+      title: 'Park',
+      subtitle: 'Hogebothofstraat 49, Enschede',
+      description: 'An Öffnungstagen sind Sie immer unverbindlich willkommen. Kommen Sie einfach vorbei gegen einen kleinen Eintritt – keine Reservierung nötig. Unser Skatepark bietet die perfekte Umgebung zum Skaten auf jedem Niveau.',
       galleryTitle: 'Unser Park Ansehen',
       features: [
         {
@@ -145,8 +145,8 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
         },
         {
           icon: Clock,
-          title: '5 Tage Geöffnet',
-          description: '5 Tage pro Woche geöffnet mit flexiblen Öffnungszeiten.'
+          title: 'Unverbindlich Zugänglich',
+          description: 'An Öffnungstagen sind Sie immer willkommen. Kommen Sie einfach vorbei gegen einen kleinen Eintritt.'
         },
         {
           icon: Award,
@@ -165,7 +165,7 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
         { number: '1000+', label: 'Quadratmeter' },
         { number: '50+', label: 'Events pro Jahr' }
       ],
-      cta: 'Planen Sie Ihren Besuch'
+      cta: 'Öffnungszeiten Ansehen'
     }
   };
 
@@ -352,7 +352,7 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
           className="text-center"
         >
           <Button size="lg" className="btn-primary text-lg px-8 py-4" asChild>
-            <a href="#contact">{text.cta}</a>
+            <a href="#open">{text.cta}</a>
           </Button>
         </motion.div>
       </div>

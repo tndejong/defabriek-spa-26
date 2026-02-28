@@ -18,8 +18,8 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
       contact: 'Contact',
       followUs: 'Volg Ons',
       socialText: 'Blijf verbonden met onze community',
-      copyright: '© 2024 De Fabriek Skatepark. Alle rechten voorbehouden.',
-      address: 'Enschede, Nederland'
+      copyright: '© 2024 Skateboardvereniging De Fabriek. Alle rechten voorbehouden.',
+      address: 'Hogebothofstraat 49, Enschede'
     },
     en: {
       title: 'De Fabriek',
@@ -28,8 +28,8 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
       contact: 'Contact',
       followUs: 'Follow Us',
       socialText: 'Stay connected with our community',
-      copyright: '© 2024 De Fabriek Skatepark. All rights reserved.',
-      address: 'Enschede, Netherlands'
+      copyright: '© 2024 Skateboardvereniging De Fabriek. All rights reserved.',
+      address: 'Hogebothofstraat 49, Enschede'
     },
     de: {
       title: 'De Fabriek',
@@ -38,8 +38,8 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
       contact: 'Kontakt',
       followUs: 'Folgen Sie Uns',
       socialText: 'Bleiben Sie mit unserer Community verbunden',
-      copyright: '© 2024 De Fabriek Skatepark. Alle Rechte vorbehalten.',
-      address: 'Enschede, Niederlande'
+      copyright: '© 2024 Skateboardvereniging De Fabriek. Alle Rechte vorbehalten.',
+      address: 'Hogebothofstraat 49, Enschede'
     }
   };
 

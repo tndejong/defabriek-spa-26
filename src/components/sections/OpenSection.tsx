@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Clock, Calendar, MessageCircle, AlertTriangle, Heart } from 'lucide-react';
+import { Clock, Calendar, MessageCircle, Heart } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
@@ -15,7 +15,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
     nl: {
       title: 'Openingstijden & Informatie',
       subtitle: 'Wanneer je ons kunt vinden',
-      description: 'Ons skatepark is 5 dagen per week geopend. Kom langs voor een skate sessie!',
+      description: 'Op openingsdagen ben je altijd vrijblijvend welkom. Kom gewoon langs tegen een kleine entree – geen reservering nodig.',
       scheduleTitle: 'Openingstijden',
       schedule: [
         { day: 'Maandag', hours: 'Dicht', closed: true },
@@ -28,9 +28,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
       ],
       notices: {
         title: 'Let op',
-        items: [
-          'BMX niet toegestaan op zaterdag en zondag!'
-        ]
+        items: []
       },
       volunteer: {
         title: 'Wij zijn op zoek naar bar personeel!',
@@ -47,9 +45,9 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
         },
         {
           icon: Calendar,
-          title: '5 Dagen Open',
+          title: 'Vrijblijvend Toegankelijk',
           content: 'Wo t/m Zo',
-          description: 'Elke week geopend',
+          description: 'Kom gewoon langs, geen reservering',
           link: null
         },
         {
@@ -64,7 +62,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
     en: {
       title: 'Opening Hours & Information',
       subtitle: 'When you can find us',
-      description: 'Our skatepark is open 5 days a week. Come by for a skate session!',
+      description: 'On opening days you\'re always welcome to drop in. Just come by for a small entrance fee – no reservation needed.',
       scheduleTitle: 'Opening Hours',
       schedule: [
         { day: 'Monday', hours: 'Closed', closed: true },
@@ -77,9 +75,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
       ],
       notices: {
         title: 'Please note',
-        items: [
-          'BMX not allowed on Saturday and Sunday!'
-        ]
+        items: []
       },
       volunteer: {
         title: 'We are looking for bar staff!',
@@ -96,9 +92,9 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
         },
         {
           icon: Calendar,
-          title: 'Open 5 Days',
+          title: 'Freely Accessible',
           content: 'Wed - Sun',
-          description: 'Open every week',
+          description: 'Just drop in, no reservation',
           link: null
         },
         {
@@ -113,7 +109,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
     de: {
       title: 'Öffnungszeiten & Informationen',
       subtitle: 'Wann Sie uns finden können',
-      description: 'Unser Skatepark ist 5 Tage die Woche geöffnet. Kommen Sie vorbei für eine Skate-Session!',
+      description: 'An Öffnungstagen sind Sie immer unverbindlich willkommen. Kommen Sie einfach vorbei gegen einen kleinen Eintritt – keine Reservierung nötig.',
       scheduleTitle: 'Öffnungszeiten',
       schedule: [
         { day: 'Montag', hours: 'Geschlossen', closed: true },
@@ -126,9 +122,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
       ],
       notices: {
         title: 'Bitte beachten',
-        items: [
-          'BMX nicht erlaubt am Samstag und Sonntag!'
-        ]
+        items: []
       },
       volunteer: {
         title: 'Wir suchen Barpersonal!',
@@ -145,9 +139,9 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
         },
         {
           icon: Calendar,
-          title: '5 Tage Geöffnet',
+          title: 'Unverbindlich Zugänglich',
           content: 'Mi - So',
-          description: 'Jede Woche geöffnet',
+          description: 'Einfach vorbeikommen, keine Reservierung',
           link: null
         },
         {
@@ -243,26 +237,6 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
             viewport={{ once: true }}
             className="space-y-6 lg:pt-16"
           >
-            {/* BMX Notice */}
-            <Card className="glass border-amber-200 bg-amber-50/50">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-xl font-bold text-amber-800 flex items-center">
-                  <AlertTriangle className="w-5 h-5 mr-2 text-amber-600" />
-                  {text.notices.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {text.notices.items.map((item, index) => (
-                    <li key={index} className="flex items-start gap-2 text-amber-800">
-                      <span className="text-amber-600">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
             {/* Volunteer Card */}
             <Card className="glass border-primary-200 bg-primary-50/50">
               <CardHeader className="pb-3">
