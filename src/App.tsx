@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -17,6 +17,20 @@ export type Language = 'nl' | 'en' | 'de';
 function App() {
   const [currentSection, setCurrentSection] = useState('home');
   const [language, setLanguage] = useState<Language>('nl');
+
+  // Scroll naar #sectie bij laden (bijv. na redirect van /open naar /#open)
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash && ['home', 'park', 'kosten', 'open', 'verhaal', 'lessen', 'team', 'contact'].includes(hash)) {
+      const scroll = () => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+      setTimeout(scroll, 100);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,6 +72,15 @@ function App() {
 
         <AnimatePresence mode="wait">
           <Routes>
+            {/* Legacy URL redirects – scraped paths naar correcte #sectie */}
+            <Route path="/open" element={<Navigate to="/#open" replace />} />
+            <Route path="/verhaal" element={<Navigate to="/#verhaal" replace />} />
+            <Route path="/park" element={<Navigate to="/#park" replace />} />
+            <Route path="/kosten" element={<Navigate to="/#kosten" replace />} />
+            <Route path="/lessen" element={<Navigate to="/#lessen" replace />} />
+            <Route path="/team" element={<Navigate to="/#team" replace />} />
+            <Route path="/contact" element={<Navigate to="/#contact" replace />} />
+            <Route path="/home" element={<Navigate to="/#home" replace />} />
             <Route path="/" element={
               <motion.div
                 initial={{ opacity: 0 }}
