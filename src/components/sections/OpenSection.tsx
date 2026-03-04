@@ -13,7 +13,7 @@ interface OpenSectionProps {
 const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
   const content = {
     nl: {
-      title: 'Openingstijden & Informatie',
+      title: 'Openingstijden',
       subtitle: 'Wanneer je ons kunt vinden',
       description: 'Op openingsdagen ben je altijd vrijblijvend welkom. Kom gewoon langs tegen een kleine entree – geen reservering nodig.',
       scheduleTitle: 'Openingstijden',
@@ -60,7 +60,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
       ]
     },
     en: {
-      title: 'Opening Hours & Information',
+      title: 'Opening Hours',
       subtitle: 'When you can find us',
       description: 'On opening days you\'re always welcome to drop in. Just come by for a small entrance fee – no reservation needed.',
       scheduleTitle: 'Opening Hours',
@@ -107,7 +107,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
       ]
     },
     de: {
-      title: 'Öffnungszeiten & Informationen',
+      title: 'Öffnungszeiten',
       subtitle: 'Wann Sie uns finden können',
       description: 'An Öffnungstagen sind Sie immer unverbindlich willkommen. Kommen Sie einfach vorbei gegen einen kleinen Eintritt – keine Reservierung nötig.',
       scheduleTitle: 'Öffnungszeiten',
