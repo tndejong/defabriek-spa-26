@@ -50,7 +50,7 @@ const VerhaalSection: React.FC<VerhaalSectionProps> = ({ language }) => {
           description: 'Ondanks moeilijke tijden blijft de community sterk en ondersteunt elkaar.'
         },
         {
-          year: '2024',
+          year: '2026',
           title: 'Vandaag',
           description: 'De Fabriek is hét centrum voor skateboarden in Enschede en omgeving met een actieve en groeiende community.'
         }
@@ -119,7 +119,7 @@ const VerhaalSection: React.FC<VerhaalSectionProps> = ({ language }) => {
           description: 'Despite difficult times, the community remains strong and supports each other.'
         },
         {
-          year: '2024',
+          year: '2026',
           title: 'Today',
           description: 'De Fabriek is THE center for skateboarding in Enschede and surroundings with an active and growing community.'
         }
@@ -188,7 +188,7 @@ const VerhaalSection: React.FC<VerhaalSectionProps> = ({ language }) => {
           description: 'Trotz schwieriger Zeiten bleibt die Community stark und unterstützt sich gegenseitig.'
         },
         {
-          year: '2024',
+          year: '2026',
           title: 'Heute',
           description: 'De Fabriek ist DAS Zentrum für Skateboarding in Enschede und Umgebung mit einer aktiven und wachsenden Community.'
         }
