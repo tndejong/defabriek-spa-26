@@ -1,9 +1,8 @@
 [build]
   command = "npm run build"
   publish = "dist"
-  # SMTP_USER is the public contact email (info@defabriek.org) which is intentionally
-  # displayed in the UI, so it is safe to omit from secrets scanning.
-  environment = { SECRETS_SCAN_OMIT_KEYS = "SMTP_USER" }
+  # These SMTP vars hold the public contact email displayed in the UI - not real secrets.
+  environment = { SECRETS_SCAN_OMIT_KEYS = "SMTP_USER,SMTP_TO" }
 
 [functions]
   directory = "netlify/functions"
