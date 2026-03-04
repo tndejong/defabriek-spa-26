@@ -11,6 +11,7 @@ import LessenSection from './components/sections/LessenSection';
 import TeamSection from './components/sections/TeamSection';
 import ContactSection from './components/sections/ContactSection';
 import InstagramSection from './components/sections/InstagramSection';
+import ReviewsSection from './components/sections/ReviewsSection';
 import SponsorsSection from './components/sections/SponsorsSection';
 import ChatWidget from './components/ChatWidget';
 import Footer from './components/Footer';
@@ -94,6 +95,7 @@ function App() {
                 <Hero language={language} onNavigate={scrollToSection} />
                 <InstagramSection language={language} />
                 <ParkSection language={language} />
+                <ReviewsSection language={language} />
                 <KostenSection language={language} />
                 <OpenSection language={language} />
                 <VerhaalSection language={language} />
