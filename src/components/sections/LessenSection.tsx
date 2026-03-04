@@ -51,8 +51,8 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
         },
         {
           icon: Calendar,
-          title: 'Kinderfeestjes & Groepsuitjes',
-          description: 'Op zoek naar een stoer kinderfeestje of teamuitje? Alles is mogelijk!'
+          title: 'Events',
+          description: 'Wil je een event bij ons organiseren? Neem dan contact op en we praten verder.'
         }
       ],
       benefits: [
@@ -105,8 +105,8 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
         },
         {
           icon: Calendar,
-          title: 'Kids Parties & Group Outings',
-          description: 'Looking for a cool kids party or team outing? Everything is possible!'
+          title: 'Events',
+          description: 'Want to organise an event with us? Get in touch and we\'ll talk it through.'
         }
       ],
       benefits: [
@@ -159,8 +159,8 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
         },
         {
           icon: Calendar,
-          title: 'Kindergeburtstage & Gruppenausflüge',
-          description: 'Auf der Suche nach einem coolen Kindergeburtstag oder Teamausflug? Alles ist möglich!'
+          title: 'Events',
+          description: 'Möchtest du ein Event bei uns organisieren? Nimm Kontakt auf und wir besprechen es.'
         }
       ],
       benefits: [
