@@ -48,7 +48,7 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
 
   return (
     <>
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 pb-32">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-16 pb-32">
       {/* Background with gradient and pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-secondary-50">
         <div className="absolute inset-0 opacity-10">
