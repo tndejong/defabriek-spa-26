@@ -1,10 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, Play } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import VideoModal from './ui/VideoModal';
 import type { Language } from '../App';
+
+// WMO weather code → { emoji, good: skate outside? }
+const weatherMap: Record<number, { emoji: string; good: boolean }> = {
+  0:  { emoji: '☀️',  good: true  },
+  1:  { emoji: '🌤️', good: true  },
+  2:  { emoji: '⛅',  good: true  },
+  3:  { emoji: '☁️',  good: false },
+  45: { emoji: '🌫️', good: false },
+  48: { emoji: '🌫️', good: false },
+  51: { emoji: '🌦️', good: false },
+  53: { emoji: '🌦️', good: false },
+  55: { emoji: '🌧️', good: false },
+  61: { emoji: '🌧️', good: false },
+  63: { emoji: '🌧️', good: false },
+  65: { emoji: '🌧️', good: false },
+  71: { emoji: '❄️',  good: false },
+  73: { emoji: '❄️',  good: false },
+  75: { emoji: '❄️',  good: false },
+  77: { emoji: '❄️',  good: false },
+  80: { emoji: '🌧️', good: false },
+  81: { emoji: '🌧️', good: false },
+  82: { emoji: '⛈️',  good: false },
+  85: { emoji: '❄️',  good: false },
+  86: { emoji: '❄️',  good: false },
+  95: { emoji: '⛈️',  good: false },
+  96: { emoji: '⛈️',  good: false },
+  99: { emoji: '⛈️',  good: false },
+};
+
+interface WeatherData {
+  emoji: string;
+  temp: number;
+  good: boolean;
+}
+
+const weatherLabels = {
+  nl: { good: 'Park heeft ventilatie – ook binnen prima!', bad: 'Kom binnen skaten!' },
+  en: { good: 'Park has ventilation – inside is great too!', bad: 'Perfect indoor skate day!' },
+  de: { good: 'Park hat Belüftung – auch drinnen prima!', bad: 'Perfekt zum Drinnen-Skaten!' },
+};
 
 interface HeroProps {
   language: Language;
@@ -13,6 +53,21 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+
+  useEffect(() => {
+    fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=52.2215&longitude=6.8937&current=temperature_2m,weathercode&timezone=Europe%2FAmsterdam'
+    )
+      .then(r => r.json())
+      .then(data => {
+        const code: number = data.current.weathercode;
+        const temp: number = Math.round(data.current.temperature_2m);
+        const info = weatherMap[code] ?? { emoji: '🌡️', good: false };
+        setWeather({ emoji: info.emoji, temp, good: info.good });
+      })
+      .catch(() => {});
+  }, []);
 
   const content = {
     nl: {
@@ -57,6 +112,32 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-secondary-200 rounded-full blur-2xl"></div>
         </div>
       </div>
+
+      {/* Weather badge */}
+      {weather && (
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 1.4 }}
+          className="absolute top-20 left-4 sm:left-8 z-20"
+        >
+          <div className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl border text-sm font-medium ${
+            weather.good
+              ? 'bg-white/20 border-white/40 text-orange-900'
+              : 'bg-white/20 border-white/40 text-primary-900'
+          }`}
+            style={{ WebkitBackdropFilter: 'blur(20px)' }}
+          >
+            <span className="text-xl leading-none">{weather.emoji}</span>
+            <div className="flex flex-col leading-tight">
+              <span className="font-semibold">{weather.temp}°C</span>
+              <span className="text-xs opacity-80">
+                {weather.good ? weatherLabels[language].good : weatherLabels[language].bad} 🛹
+              </span>
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       {/* Main content */}
       <div className="relative z-10 container-max px-4 sm:px-6 lg:px-8">
