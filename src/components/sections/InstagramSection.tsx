@@ -10,17 +10,17 @@ const content = {
   nl: {
     badge: 'Instagram',
     title: 'Volg ons op Instagram',
-    subtitle: 'Blijf op de hoogte van het laatste nieuws, events en tricks uit De Fabriek.',
+    subtitle: 'Blijf op de hoogte van het laatste nieuws, events en shredders in De Fabriek.',
   },
   en: {
     badge: 'Instagram',
     title: 'Follow us on Instagram',
-    subtitle: 'Stay up to date with the latest news, events and tricks from De Fabriek.',
+    subtitle: 'Stay up to date with the latest news, events and shredders in De Fabriek.',
   },
   de: {
     badge: 'Instagram',
     title: 'Folge uns auf Instagram',
-    subtitle: 'Bleib auf dem Laufenden über die neuesten Nachrichten, Events und Tricks aus De Fabriek.',
+    subtitle: 'Bleib auf dem Laufenden über die neuesten Nachrichten, Events und Shredder in De Fabriek.',
   },
 };
 
