@@ -10,6 +10,7 @@ import VerhaalSection from './components/sections/VerhaalSection';
 import LessenSection from './components/sections/LessenSection';
 import TeamSection from './components/sections/TeamSection';
 import ContactSection from './components/sections/ContactSection';
+import SponsorsSection from './components/sections/SponsorsSection';
 import Footer from './components/Footer';
 
 export type Language = 'nl' | 'en' | 'de';
@@ -96,6 +97,7 @@ function App() {
                 <LessenSection language={language} />
                 <TeamSection language={language} />
                 <ContactSection language={language} />
+                <SponsorsSection language={language} />
               </motion.div>
             } />
           </Routes>

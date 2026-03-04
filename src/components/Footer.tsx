@@ -50,6 +50,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
     { label: { nl: 'Lessen', en: 'Lessons', de: 'Lektionen' }, href: '#lessen' },
     { label: { nl: 'Team', en: 'Team', de: 'Team' }, href: '#team' },
     { label: { nl: 'Contact', en: 'Contact', de: 'Kontakt' }, href: '#contact' },
+    { label: { nl: 'Sponsors', en: 'Sponsors', de: 'Sponsoren' }, href: '#sponsors' },
   ];
 
   return (
