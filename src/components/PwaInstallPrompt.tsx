@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Smartphone, Share } from 'lucide-react';
+import { X, Smartphone, Share, MoreHorizontal, Plus } from 'lucide-react';
 import type { Language } from '../App';
 
 interface PwaInstallPromptProps {
@@ -11,37 +11,54 @@ type Platform = 'android' | 'ios' | 'other';
 
 const STORAGE_KEY = 'pwa-prompt-dismissed';
 
+type IosStep = { label: string; icon: 'dots' | 'share' | 'more' | 'plus' };
+
 const content: Record<Language, {
   title: string;
   subtitle: string;
   installBtn: string;
   dismiss: string;
-  iosStep1: string;
-  iosStep2: string;
+  iosLabel: string;
+  iosSteps: IosStep[];
 }> = {
   nl: {
     title: 'Voeg toe aan thuisscherm',
     subtitle: 'Bekijk openingstijden en nieuws altijd snel via je thuisscherm.',
     installBtn: 'Installeer app',
     dismiss: 'Misschien later',
-    iosStep1: 'Tik op',
-    iosStep2: 'en kies "Zet op beginscherm"',
+    iosLabel: 'Volg deze stappen in Safari:',
+    iosSteps: [
+      { label: 'Tik op de drie puntjes (⋯) rechtsboven', icon: 'dots' },
+      { label: 'Tik op "Deel"', icon: 'share' },
+      { label: 'Tik op "Toon meer"', icon: 'more' },
+      { label: 'Tik op "Zet op beginscherm"', icon: 'plus' },
+    ],
   },
   en: {
     title: 'Add to home screen',
     subtitle: 'Quickly check opening hours and news right from your home screen.',
     installBtn: 'Install app',
     dismiss: 'Maybe later',
-    iosStep1: 'Tap',
-    iosStep2: 'and choose "Add to Home Screen"',
+    iosLabel: 'Follow these steps in Safari:',
+    iosSteps: [
+      { label: 'Tap the three dots (⋯) top right', icon: 'dots' },
+      { label: 'Tap "Share"', icon: 'share' },
+      { label: 'Tap "Show more"', icon: 'more' },
+      { label: 'Tap "Add to Home Screen"', icon: 'plus' },
+    ],
   },
   de: {
     title: 'Zum Startbildschirm hinzufügen',
     subtitle: 'Öffnungszeiten und Neuigkeiten jederzeit schnell abrufen.',
     installBtn: 'App installieren',
     dismiss: 'Vielleicht später',
-    iosStep1: 'Tippe auf',
-    iosStep2: 'und wähle „Zum Home-Bildschirm"',
+    iosLabel: 'Folge diesen Schritten in Safari:',
+    iosSteps: [
+      { label: 'Tippe auf die drei Punkte (⋯) oben rechts', icon: 'dots' },
+      { label: 'Tippe auf „Teilen"', icon: 'share' },
+      { label: 'Tippe auf „Mehr anzeigen"', icon: 'more' },
+      { label: 'Tippe auf „Zum Home-Bildschirm"', icon: 'plus' },
+    ],
   },
 };
 
@@ -168,10 +185,24 @@ const PwaInstallPrompt: React.FC<PwaInstallPromptProps> = ({ language }) => {
               </p>
 
               {platform === 'ios' ? (
-                <div className="bg-neutral-50 rounded-xl p-3 mb-4 flex items-center gap-2 text-xs text-neutral-700">
-                  <span>{t.iosStep1}</span>
-                  <Share className="w-4 h-4 text-blue-500 shrink-0" />
-                  <span>{t.iosStep2}</span>
+                <div className="mb-4">
+                  <p className="text-xs font-medium text-neutral-500 mb-2">{t.iosLabel}</p>
+                  <ol className="space-y-2">
+                    {t.iosSteps.map((step, i) => (
+                      <li key={i} className="flex items-center gap-2.5 bg-neutral-50 rounded-xl px-3 py-2">
+                        <span className="w-5 h-5 rounded-full bg-primary-100 text-primary-700 text-xs font-bold flex items-center justify-center shrink-0">
+                          {i + 1}
+                        </span>
+                        <span className="text-xs text-neutral-700 flex-1 leading-snug">{step.label}</span>
+                        <span className="shrink-0 text-neutral-400">
+                          {step.icon === 'dots'  && <MoreHorizontal className="w-4 h-4" />}
+                          {step.icon === 'share' && <Share className="w-4 h-4 text-blue-500" />}
+                          {step.icon === 'more'  && <MoreHorizontal className="w-4 h-4" />}
+                          {step.icon === 'plus'  && <Plus className="w-4 h-4 text-green-500" />}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
                 </div>
               ) : (
                 <button
