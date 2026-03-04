@@ -62,7 +62,7 @@ const Navigation: React.FC<NavigationProps> = ({
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-6">
               {navItems.map((item) => (
                 <motion.button
                   key={item.id}
@@ -109,7 +109,7 @@ const Navigation: React.FC<NavigationProps> = ({
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden"
+                className="lg:hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -127,7 +127,7 @@ const Navigation: React.FC<NavigationProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-16 left-0 right-0 z-40 glass backdrop-blur-xl bg-white/95 border-b border-white/20 md:hidden"
+            className="fixed top-16 left-0 right-0 z-40 glass backdrop-blur-xl bg-white/95 border-b border-white/20 lg:hidden"
           >
             <div className="px-4 py-6 space-y-4">
               {/* Mobile Language Switcher - Dropdown */}
