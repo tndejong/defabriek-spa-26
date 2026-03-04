@@ -29,19 +29,19 @@ const SponsorsSection: React.FC<SponsorsSectionProps> = ({ language }) => {
   const content = {
     nl: {
       title: 'Sponsors',
-      subtitle: 'Onze geweldige sponsors maken het mogelijk',
+      subtitle: 'Mogelijk gemaakt door onze sponsors',
       description: 'Dankzij de steun van onze sponsors kunnen wij De Fabriek blijven runnen en uitbreiden. Wil jij ook sponsor worden? Neem contact met ons op!',
       cta: 'Word Sponsor',
     },
     en: {
       title: 'Sponsors',
-      subtitle: 'Our amazing sponsors make it possible',
+      subtitle: 'Made possible by our sponsors',
       description: 'Thanks to the support of our sponsors we can keep running and expanding De Fabriek. Want to become a sponsor? Get in touch with us!',
       cta: 'Become a Sponsor',
     },
     de: {
       title: 'Sponsoren',
-      subtitle: 'Unsere großartigen Sponsoren machen es möglich',
+      subtitle: 'Ermöglicht durch unsere Sponsoren',
       description: 'Dank der Unterstützung unserer Sponsoren können wir De Fabriek weiter betreiben und ausbauen. Möchten Sie Sponsor werden? Nehmen Sie Kontakt mit uns auf!',
       cta: 'Sponsor Werden',
     },

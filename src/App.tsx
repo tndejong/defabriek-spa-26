@@ -10,10 +10,12 @@ import VerhaalSection from './components/sections/VerhaalSection';
 import LessenSection from './components/sections/LessenSection';
 import TeamSection from './components/sections/TeamSection';
 import ContactSection from './components/sections/ContactSection';
+import FaqSection from './components/sections/FaqSection';
 import InstagramSection from './components/sections/InstagramSection';
 import ReviewsSection from './components/sections/ReviewsSection';
 import SponsorsSection from './components/sections/SponsorsSection';
 import ChatWidget from './components/ChatWidget';
+import PwaInstallPrompt from './components/PwaInstallPrompt';
 import Footer from './components/Footer';
 
 export type Language = 'nl' | 'en' | 'de';
@@ -101,6 +103,7 @@ function App() {
                 <VerhaalSection language={language} />
                 <LessenSection language={language} />
                 <TeamSection language={language} />
+                <FaqSection language={language} />
                 <ContactSection language={language} />
                 <SponsorsSection language={language} />
               </motion.div>
@@ -110,6 +113,7 @@ function App() {
 
         <Footer language={language} />
         <ChatWidget language={language} />
+        <PwaInstallPrompt language={language} />
       </div>
     </Router>
   );

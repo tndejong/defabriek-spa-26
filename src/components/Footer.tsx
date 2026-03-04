@@ -49,6 +49,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
     { label: { nl: 'Park', en: 'Park', de: 'Park' }, href: '#park' },
     { label: { nl: 'Lessen', en: 'Lessons', de: 'Lektionen' }, href: '#lessen' },
     { label: { nl: 'Bestuur', en: 'Board', de: 'Vorstand' }, href: '#team' },
+    { label: { nl: 'FAQ', en: 'FAQ', de: 'FAQ' }, href: '#faq' },
     { label: { nl: 'Contact', en: 'Contact', de: 'Kontakt' }, href: '#contact' },
     { label: { nl: 'Sponsors', en: 'Sponsors', de: 'Sponsoren' }, href: '#sponsors' },
   ];

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import { Mail, MapPin, Send, Instagram, Facebook } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
@@ -66,31 +66,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
         success: 'Bericht verzonden! We nemen zo snel mogelijk contact op.',
         error: 'Er ging iets mis. Probeer het later opnieuw of mail naar info@defabriek.org.'
       },
-      faq: {
-        title: 'Veelgestelde Vragen',
-        items: [
-          {
-            question: 'Kan ik een proefles volgen?',
-            answer: 'Ja, we bieden gratis proeflessen aan voor iedereen die geïnteresseerd is in onze skateboard lessen.'
-          },
-          {
-            question: 'Zijn er lessen voor kinderen?',
-            answer: 'Absoluut! We hebben speciale lessen voor kinderen vanaf 6 jaar, gegeven door gecertificeerde instructeurs.'
-          },
-          {
-            question: 'Moet ik mijn eigen skateboard hebben?',
-            answer: 'Nee, we verhuren skateboards en beschermingsmateriaal tijdens de lessen. Je kunt ook je eigen materiaal meenemen.'
-          },
-          {
-            question: 'Kan ik lid worden?',
-            answer: 'We gaan binnenkort starten met lidmaatschappen en willen graag de animo peilen. Laat van je horen als je geïnteresseerd bent! Je kunt je ook aanmelden als vrijwilliger.'
-          },
-          {
-            question: 'Kan ik vrijwilliger worden?',
-            answer: 'Ja! We zijn altijd op zoek naar vrijwilligers. Neem contact met ons op als je wilt helpen.'
-          }
-        ]
-      }
     },
     en: {
       title: 'Contact Us',
@@ -136,31 +111,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
         success: 'Message sent! We will get back to you as soon as possible.',
         error: 'Something went wrong. Please try again later or email info@defabriek.org.'
       },
-      faq: {
-        title: 'Frequently Asked Questions',
-        items: [
-          {
-            question: 'Can I take a trial lesson?',
-            answer: 'Yes, we offer free trial lessons for anyone interested in our skateboard lessons.'
-          },
-          {
-            question: 'Are there lessons for children?',
-            answer: 'Absolutely! We have special lessons for children from 6 years old, taught by certified instructors.'
-          },
-          {
-            question: 'Do I need to bring my own skateboard?',
-            answer: 'No, we rent skateboards and protective gear during lessons. You can also bring your own equipment.'
-          },
-          {
-            question: 'Can I become a member?',
-            answer: 'We\'re going to start offering memberships soon and want to gauge the interest. Let us know if you\'re interested! You can also sign up as a volunteer.'
-          },
-          {
-            question: 'Can I become a volunteer?',
-            answer: 'Yes! We\'re always looking for volunteers. Get in touch if you\'d like to help.'
-          }
-        ]
-      }
     },
     de: {
       title: 'Kontaktieren Sie uns',
@@ -206,31 +156,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
         success: 'Nachricht gesendet! Wir melden uns so schnell wie möglich.',
         error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut oder mailen Sie an info@defabriek.org.'
       },
-      faq: {
-        title: 'Häufig Gestellte Fragen',
-        items: [
-          {
-            question: 'Kann ich eine Probelektion machen?',
-            answer: 'Ja, wir bieten kostenlose Probelektionen für alle an, die an unseren Skateboard-Lektionen interessiert sind.'
-          },
-          {
-            question: 'Gibt es Lektionen für Kinder?',
-            answer: 'Absolut! Wir haben spezielle Lektionen für Kinder ab 6 Jahren, unterrichtet von zertifizierten Instruktoren.'
-          },
-          {
-            question: 'Muss ich mein eigenes Skateboard mitbringen?',
-            answer: 'Nein, wir vermieten Skateboards und Schutzausrüstung während der Lektionen. Sie können auch Ihre eigene Ausrüstung mitbringen.'
-          },
-          {
-            question: 'Kann ich Mitglied werden?',
-            answer: 'Wir werden bald mit Mitgliedschaften starten und möchten das Interesse erfahren. Melden Sie sich, wenn Sie interessiert sind! Sie können sich auch als Freiwilliger anmelden.'
-          },
-          {
-            question: 'Kann ich Freiwilliger werden?',
-            answer: 'Ja! Wir suchen immer Freiwillige. Nehmen Sie Kontakt mit uns auf, wenn Sie helfen möchten.'
-          }
-        ]
-      }
     }
   };
 
@@ -459,43 +384,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
           </motion.div>
         </div>
 
-        {/* FAQ */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-3xl font-bold text-center mb-12 text-neutral-800">
-            {text.faq.title}
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {text.faq.items.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="glass h-full">
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-3 mb-4">
-                      <MessageCircle className="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" />
-                      <h4 className="font-semibold text-neutral-800 leading-relaxed">
-                        {item.question}
-                      </h4>
-                    </div>
-                    <p className="text-neutral-600 leading-relaxed pl-9">
-                      {item.answer}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

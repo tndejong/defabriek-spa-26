@@ -161,18 +161,41 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
           </p>
         </motion.div>
 
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-32"
+        >
+          {text.stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">
+                {stat.number}
+              </div>
+              <div className="text-neutral-600 font-medium">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
         {/* Photo Mosaic */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-32"
         >
-          <h3 className="text-2xl font-bold text-center mb-8 text-neutral-800">
-            {text.galleryTitle}
-          </h3>
-
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {polaroidImages.map((img, index) => (
               <motion.div
@@ -199,7 +222,7 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
           {text.features.map((feature, index) => (
             <motion.div
               key={index}
@@ -228,33 +251,6 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
             </motion.div>
           ))}
         </div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
-        >
-          {text.stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div className="text-4xl md:text-5xl font-bold text-gradient mb-2">
-                {stat.number}
-              </div>
-              <div className="text-neutral-600 font-medium">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
 
         {/* CTA */}
         <motion.div
