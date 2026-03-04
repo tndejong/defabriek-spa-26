@@ -10,6 +10,7 @@ import VerhaalSection from './components/sections/VerhaalSection';
 import LessenSection from './components/sections/LessenSection';
 import TeamSection from './components/sections/TeamSection';
 import ContactSection from './components/sections/ContactSection';
+import InstagramSection from './components/sections/InstagramSection';
 import SponsorsSection from './components/sections/SponsorsSection';
 import ChatWidget from './components/ChatWidget';
 import Footer from './components/Footer';
@@ -91,6 +92,7 @@ function App() {
                 transition={{ duration: 0.5 }}
               >
                 <Hero language={language} onNavigate={scrollToSection} />
+                <InstagramSection language={language} />
                 <ParkSection language={language} />
                 <KostenSection language={language} />
                 <OpenSection language={language} />

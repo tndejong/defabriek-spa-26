@@ -172,7 +172,7 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
   const text = content[language];
 
   return (
-    <section id="park" className="section-padding bg-white">
+    <section id="park" className="section-padding bg-gradient-to-br from-neutral-50 via-white to-primary-50">
       <div className="container-max">
         {/* Header */}
         <motion.div
