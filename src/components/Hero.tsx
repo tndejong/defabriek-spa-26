@@ -121,13 +121,14 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
       .catch(() => {});
   }, []);
 
-  // Cycle through 3 badges every 4 seconds
+  // Cycle through badges every 4 seconds — skip busyness badge when closed
   useEffect(() => {
+    const total = parkStatus.isOpen ? 3 : 2;
     const interval = setInterval(() => {
-      setActiveBadge(prev => (prev + 1) % 3);
+      setActiveBadge(prev => (prev + 1) % total);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [parkStatus.isOpen]);
 
   const content = {
     nl: {
@@ -227,8 +228,8 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
             </motion.div>
           )}
 
-          {/* Badge 2: Busyness — for now always shown (test mode) */}
-          {activeBadge === 2 && (
+          {/* Badge 2: Busyness — only shown when open */}
+          {activeBadge === 2 && parkStatus.isOpen && (
             <motion.div
               key="busy"
               initial={{ opacity: 0, y: 8 }}
