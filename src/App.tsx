@@ -15,7 +15,6 @@ import InstagramSection from './components/sections/InstagramSection';
 import ReviewsSection from './components/sections/ReviewsSection';
 import SponsorsSection from './components/sections/SponsorsSection';
 import ChatWidget from './components/ChatWidget';
-import PwaInstallPrompt from './components/PwaInstallPrompt';
 import Footer from './components/Footer';
 
 export type Language = 'nl' | 'en' | 'de';
@@ -113,7 +112,6 @@ function App() {
 
         <Footer language={language} />
         <ChatWidget language={language} />
-        <PwaInstallPrompt language={language} />
       </div>
     </Router>
   );
