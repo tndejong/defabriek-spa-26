@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Play } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -46,6 +46,56 @@ const weatherLabels = {
   de: { good: 'Park hat Belüftung – auch drinnen prima!', bad: 'Perfekt zum Drinnen-Skaten!' },
 };
 
+// 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
+const schedule: Record<number, { open: string; close: string } | null> = {
+  0: { open: '13:00', close: '20:00' }, // Sunday
+  1: null,
+  2: null,
+  3: { open: '18:30', close: '23:00' },
+  4: { open: '18:30', close: '23:00' },
+  5: { open: '18:30', close: '23:00' },
+  6: { open: '13:00', close: '23:00' }, // Saturday
+};
+
+const busyDays = new Set([0, 6]); // Sun & Sat
+
+function parseTime(t: string) {
+  const [h, m] = t.split(':').map(Number);
+  return h * 60 + m;
+}
+
+function getParkStatus() {
+  const now = new Date();
+  const day = now.getDay();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+  const slot = schedule[day];
+  const isOpen = !!slot && minutes >= parseTime(slot.open) && minutes < parseTime(slot.close);
+  const isBusy = busyDays.has(day);
+  const nextOpen = slot ? slot.open : null;
+  return { isOpen, isBusy, nextOpen, slot };
+}
+
+const statusLabels = {
+  nl: {
+    open: 'We zijn nu open!',
+    closed: 'Nu gesloten',
+    busy: 'Druk in het park 🔥',
+    quiet: 'Lekker rustig vandaag',
+  },
+  en: {
+    open: 'We\'re open now!',
+    closed: 'Currently closed',
+    busy: 'Busy in the park 🔥',
+    quiet: 'Nice and quiet today',
+  },
+  de: {
+    open: 'Wir haben jetzt geöffnet!',
+    closed: 'Aktuell geschlossen',
+    busy: 'Viel los im Park 🔥',
+    quiet: 'Schön ruhig heute',
+  },
+};
+
 interface HeroProps {
   language: Language;
   onNavigate: (sectionId: string) => void;
@@ -54,6 +104,8 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [activeBadge, setActiveBadge] = useState(0);
+  const parkStatus = getParkStatus();
 
   useEffect(() => {
     fetch(
@@ -67,6 +119,14 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
         setWeather({ emoji: info.emoji, temp, good: info.good });
       })
       .catch(() => {});
+  }, []);
+
+  // Cycle through 3 badges every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveBadge(prev => (prev + 1) % 3);
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
 
   const content = {
@@ -113,31 +173,85 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
         </div>
       </div>
 
-      {/* Weather badge */}
-      {weather && (
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 1.4 }}
-          className="absolute top-20 left-4 sm:left-8 z-20"
-        >
-          <div className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl border text-sm font-medium ${
-            weather.good
-              ? 'bg-white/20 border-white/40 text-orange-900'
-              : 'bg-white/20 border-white/40 text-primary-900'
-          }`}
-            style={{ WebkitBackdropFilter: 'blur(20px)' }}
-          >
-            <span className="text-xl leading-none">{weather.emoji}</span>
-            <div className="flex flex-col leading-tight">
-              <span className="font-semibold">{weather.temp}°C</span>
-              <span className="text-xs opacity-80">
-                {weather.good ? weatherLabels[language].good : weatherLabels[language].bad} 🛹
-              </span>
-            </div>
-          </div>
-        </motion.div>
-      )}
+      {/* Cycling status badges */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 1.4 }}
+        className="absolute top-20 left-4 sm:left-8 z-20 w-64"
+      >
+        <AnimatePresence mode="wait">
+          {/* Badge 0: Weather */}
+          {activeBadge === 0 && weather && (
+            <motion.div
+              key="weather"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35 }}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl border bg-white/20 border-white/40 text-sm font-medium"
+              style={{ WebkitBackdropFilter: 'blur(20px)' }}
+            >
+              <span className="text-xl leading-none">{weather.emoji}</span>
+              <div className="flex flex-col leading-tight">
+                <span className="font-semibold text-neutral-800">{weather.temp}°C</span>
+                <span className="text-xs text-neutral-600">
+                  {weather.good ? weatherLabels[language].good : weatherLabels[language].bad} 🛹
+                </span>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Badge 1: Open / Closed */}
+          {activeBadge === 1 && (
+            <motion.div
+              key="open"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35 }}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl border bg-white/20 border-white/40 text-sm font-medium"
+              style={{ WebkitBackdropFilter: 'blur(20px)' }}
+            >
+              <span className="text-xl leading-none">{parkStatus.isOpen ? '🟢' : '🔴'}</span>
+              <div className="flex flex-col leading-tight">
+                <span className={`font-semibold ${parkStatus.isOpen ? 'text-green-800' : 'text-neutral-700'}`}>
+                  {parkStatus.isOpen ? statusLabels[language].open : statusLabels[language].closed}
+                </span>
+                {parkStatus.slot && (
+                  <span className="text-xs text-neutral-500">
+                    {parkStatus.slot.open} – {parkStatus.slot.close}
+                  </span>
+                )}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Badge 2: Busyness — for now always shown (test mode) */}
+          {activeBadge === 2 && (
+            <motion.div
+              key="busy"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35 }}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl shadow-2xl backdrop-blur-xl border bg-white/20 border-white/40 text-sm font-medium"
+              style={{ WebkitBackdropFilter: 'blur(20px)' }}
+            >
+              <span className="text-xl leading-none">{parkStatus.isBusy ? '🤙' : '😎'}</span>
+              <div className="flex flex-col leading-tight">
+                <span className={`font-semibold ${parkStatus.isBusy ? 'text-orange-800' : 'text-blue-800'}`}>
+                  {parkStatus.isBusy ? statusLabels[language].busy : statusLabels[language].quiet}
+                </span>
+                <span className="text-xs text-neutral-500">
+                  {parkStatus.isBusy ? 'Za & zo zijn drukke dagen' : 'Kom gerust langs!'}
+                </span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+      </motion.div>
 
       {/* Main content */}
       <div className="relative z-10 container-max px-4 sm:px-6 lg:px-8">
