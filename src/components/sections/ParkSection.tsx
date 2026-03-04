@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Users, Clock, Award, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Users, Clock, Award, Heart } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
@@ -10,57 +10,22 @@ interface ParkSectionProps {
   language: Language;
 }
 
-const parkImages = [
-  '/images/park/park-2.png',   // Wide overview shot
-  '/images/park/park-3.png',   // Rails and obstacles
-  '/images/park/park-6.png',   // Red box with rails
-  '/images/park/park-5.png',   // Rail detail
-  '/images/park/park-9.png',   // Ledge with grass
-  '/images/park/park-15.png',  // Full park overview
-  '/images/park/park-16.png',  // Another angle
-  '/images/park/park-17.png',  // Wide shot with obstacles
-  '/images/park/park-18.png',  // Rails section
-  '/images/park/park-10.png',  // Close up red elements
-  '/images/park/park-11.png',  // Graffiti wall
-  '/images/park/park-12.png',  // Rail detail
-  '/images/park/park-13.png',  // Bench with plants
-  '/images/park/park-14.png',  // Park overview
+const polaroidImages = [
+  { src: '/images/park/park-15.png', rotate: -2.5 },
+  { src: '/images/park/park-2.png',  rotate:  1.5 },
+  { src: '/images/park/park-3.png',  rotate: -1   },
+  { src: '/images/park/park-6.png',  rotate:  2   },
+  { src: '/images/park/park-5.png',  rotate: -1.5 },
+  { src: '/images/park/park-9.png',  rotate:  3   },
+  { src: '/images/park/park-16.png', rotate: -2   },
+  { src: '/images/park/park-17.png', rotate:  1   },
+  { src: '/images/park/park-18.png', rotate: -3   },
+  { src: '/images/park/park-10.png', rotate:  2.5 },
+  { src: '/images/park/park-11.png', rotate: -1   },
+  { src: '/images/park/park-12.png', rotate:  1.5 },
 ];
 
 const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  // Auto-play slider
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-    
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % parkImages.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-    setIsAutoPlaying(false);
-    // Resume auto-play after 10 seconds
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  };
-
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + parkImages.length) % parkImages.length);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % parkImages.length);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  };
-
   const content = {
     nl: {
       title: 'Park',
@@ -196,7 +161,7 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
           </p>
         </motion.div>
 
-        {/* Image Slider */}
+        {/* Photo Mosaic */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -207,81 +172,29 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
           <h3 className="text-2xl font-bold text-center mb-8 text-neutral-800">
             {text.galleryTitle}
           </h3>
-          
-          <div className="relative max-w-5xl mx-auto">
-            {/* Main Slider */}
-            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-neutral-100 shadow-2xl">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentIndex}
-                  src={parkImages[currentIndex]}
-                  alt={`Skatepark De Fabriek - ${currentIndex + 1}`}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  initial={{ opacity: 0, scale: 1.1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5 }}
-                />
-              </AnimatePresence>
 
-              {/* Navigation Arrows */}
-              <button
-                onClick={goToPrevious}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110"
-                aria-label="Previous image"
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+            {polaroidImages.map((img, index) => (
+              <motion.div
+                key={img.src}
+                className="bg-white p-3 pb-10 shadow-xl cursor-pointer"
+                style={{ rotate: `${img.rotate}deg` }}
+                initial={{ opacity: 0, y: 30, rotate: img.rotate - 5 }}
+                whileInView={{ opacity: 1, y: 0, rotate: img.rotate }}
+                transition={{ duration: 0.5, delay: index * 0.06, ease: 'easeOut' }}
+                whileHover={{ scale: 1.08, rotate: 0, zIndex: 10, transition: { duration: 0.2 } }}
+                viewport={{ once: true }}
               >
-                <ChevronLeft className="w-6 h-6 text-neutral-800" />
-              </button>
-              <button
-                onClick={goToNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110"
-                aria-label="Next image"
-              >
-                <ChevronRight className="w-6 h-6 text-neutral-800" />
-              </button>
-
-              {/* Image Counter */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-full text-sm font-medium">
-                {currentIndex + 1} / {parkImages.length}
-              </div>
-            </div>
-
-            {/* Thumbnail Strip */}
-            <div className="mt-4 flex gap-2 overflow-x-auto pb-2 px-1 scrollbar-hide">
-              {parkImages.map((image, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden transition-all duration-200 ${
-                    index === currentIndex
-                      ? 'ring-2 ring-primary-500 ring-offset-2 opacity-100'
-                      : 'opacity-60 hover:opacity-100'
-                  }`}
-                >
+                <div className="w-44 h-32 sm:w-52 sm:h-36 overflow-hidden bg-neutral-100">
                   <img
-                    src={image}
-                    alt={`Thumbnail ${index + 1}`}
+                    src={img.src}
+                    alt={`Skatepark De Fabriek - ${index + 1}`}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
-                </button>
-              ))}
-            </div>
-
-            {/* Dot Indicators (Mobile) */}
-            <div className="flex justify-center gap-2 mt-4 md:hidden">
-              {parkImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                    index === currentIndex
-                      ? 'bg-primary-500 w-6'
-                      : 'bg-neutral-300 hover:bg-neutral-400'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
