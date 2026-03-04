@@ -27,7 +27,7 @@ const Navigation: React.FC<NavigationProps> = ({
     { id: 'open', label: { nl: 'Open', en: 'Open', de: 'Öffnen' } },
     { id: 'verhaal', label: { nl: 'Verhaal', en: 'Story', de: 'Geschichte' } },
     { id: 'lessen', label: { nl: 'Lessen', en: 'Lessons', de: 'Lektionen' } },
-    { id: 'team', label: { nl: 'Team', en: 'Team', de: 'Team' } },
+    { id: 'team', label: { nl: 'Bestuur', en: 'Board', de: 'Vorstand' } },
     { id: 'contact', label: { nl: 'Contact', en: 'Contact', de: 'Kontakt' } },
   ];
 

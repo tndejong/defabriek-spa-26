@@ -23,19 +23,19 @@ const teamMembers = [
 const TeamSection: React.FC<TeamSectionProps> = ({ language }) => {
   const content = {
     nl: {
-      title: 'Team',
+      title: 'Bestuur',
       subtitle: 'De mensen achter De Fabriek',
-      description: 'Ons team bestaat uit vrijwilligers die zich inzetten voor de skateboardgemeenschap in Enschede.',
+      description: 'Ons bestuur bestaat uit vrijwilligers die zich inzetten voor de skateboardgemeenschap in Enschede.',
     },
     en: {
-      title: 'Team',
+      title: 'Board',
       subtitle: 'The people behind De Fabriek',
-      description: 'Our team consists of volunteers dedicated to the skateboarding community in Enschede.',
+      description: 'Our board consists of volunteers dedicated to the skateboarding community in Enschede.',
     },
     de: {
-      title: 'Team',
+      title: 'Vorstand',
       subtitle: 'Die Menschen hinter De Fabriek',
-      description: 'Unser Team besteht aus Freiwilligen, die sich für die Skateboard-Community in Enschede einsetzen.',
+      description: 'Unser Vorstand besteht aus Freiwilligen, die sich für die Skateboard-Community in Enschede einsetzen.',
     },
   };
 

@@ -11,6 +11,7 @@ import LessenSection from './components/sections/LessenSection';
 import TeamSection from './components/sections/TeamSection';
 import ContactSection from './components/sections/ContactSection';
 import SponsorsSection from './components/sections/SponsorsSection';
+import ChatWidget from './components/ChatWidget';
 import Footer from './components/Footer';
 
 export type Language = 'nl' | 'en' | 'de';
@@ -104,6 +105,7 @@ function App() {
         </AnimatePresence>
 
         <Footer language={language} />
+        <ChatWidget language={language} />
       </div>
     </Router>
   );
