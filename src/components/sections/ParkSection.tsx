@@ -57,7 +57,7 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
       stats: [
         { number: '100+', label: 'Wekelijkse Bezoekers' },
         { number: '15+', label: 'Jaren Ervaring' },
-        { number: '1600', label: 'Vierkante Meter' },
+        { number: '1200', label: 'Vierkante Meter' },
         { number: '10+', label: 'Evenementen per Jaar' }
       ],
       cta: 'Bekijk Openingstijden'
@@ -92,7 +92,7 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
       stats: [
         { number: '100+', label: 'Weekly Visitors' },
         { number: '15+', label: 'Years Experience' },
-        { number: '1600', label: 'Square Meters' },
+        { number: '1200', label: 'Square Meters' },
         { number: '10+', label: 'Events per Year' }
       ],
       cta: 'View Opening Hours'
@@ -127,7 +127,7 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
       stats: [
         { number: '100+', label: 'Wöchentliche Besucher' },
         { number: '15+', label: 'Jahre Erfahrung' },
-        { number: '1600', label: 'Quadratmeter' },
+        { number: '1200', label: 'Quadratmeter' },
         { number: '10+', label: 'Events pro Jahr' }
       ],
       cta: 'Öffnungszeiten Ansehen'

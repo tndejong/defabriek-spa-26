@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, Users, Calendar, CheckCircle, ExternalLink, Snowflake, Sun, MapPin } from 'lucide-react';
+import { GraduationCap, Users, Calendar, CheckCircle, ExternalLink, Snowflake, Sun, MapPin, Info } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
@@ -9,6 +9,37 @@ import type { Language } from '../../App';
 interface LessenSectionProps {
   language: Language;
 }
+
+const waitlistMsg: Record<string, string> = {
+  nl: 'Door grote belangstelling kan er een wachtlijst zijn.',
+  en: 'Due to high demand, there may be a waiting list.',
+  de: 'Aufgrund der hohen Nachfrage kann es eine Warteliste geben.',
+};
+
+const WaitlistTooltip: React.FC<{ language: string }> = ({ language }) => {
+  const [show, setShow] = useState(true);
+  return (
+    <div className="relative inline-flex items-center">
+      <button
+        type="button"
+        onMouseEnter={() => setShow(true)}
+        onMouseLeave={() => setShow(false)}
+        onFocus={() => setShow(true)}
+        onBlur={() => setShow(false)}
+        className="text-yellow-300/70 hover:text-yellow-200 transition-colors focus:outline-none"
+        aria-label="Wachtlijst informatie"
+      >
+        <Info className="w-4 h-4 animate-pulse" />
+      </button>
+      {show && (
+        <div className="absolute bottom-full right-0 mb-2 w-52 bg-neutral-900 text-white text-xs rounded-xl px-3 py-2 shadow-xl leading-snug z-50 pointer-events-none sm:right-auto sm:left-1/2 sm:-translate-x-1/2">
+          ⚠️ {waitlistMsg[language]}
+          <div className="absolute top-full right-3 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 border-4 border-transparent border-t-neutral-900" />
+        </div>
+      )}
+    </div>
+  );
+};
 
 const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
   const content = {
@@ -19,7 +50,7 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
       partner: {
         name: 'Fresh Skateschool',
         tagline: 'Dé skateschool van Twente',
-        description: 'Voor meer informatie over lessen en tijden kun je mailen naar info@freshskateschool.nl',
+        description: 'Skateboard lessen voor alle niveaus — van beginners tot gevorderden. Let op: er worden geen step-, BMX- of inline lessen aangeboden.',
         email: 'info@freshskateschool.nl'
       },
       seasons: [
@@ -73,7 +104,7 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
       partner: {
         name: 'Fresh Skateschool',
         tagline: 'The skateschool of Twente',
-        description: 'For more information about lessons and times, email info@freshskateschool.nl',
+        description: 'Skateboard lessons for all levels — from beginners to advanced. Note: no scooter, BMX or inline lessons are offered.',
         email: 'info@freshskateschool.nl'
       },
       seasons: [
@@ -127,7 +158,7 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
       partner: {
         name: 'Fresh Skateschool',
         tagline: 'Die Skateschool von Twente',
-        description: 'Für weitere Informationen zu Lektionen und Zeiten kannst du eine E-Mail an info@freshskateschool.nl senden.',
+        description: 'Skateboard-Unterricht für alle Niveaus — von Anfängern bis Fortgeschrittenen. Hinweis: Es werden keine Scooter-, BMX- oder Inline-Lektionen angeboten.',
         email: 'info@freshskateschool.nl'
       },
       seasons: [
@@ -211,35 +242,71 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card className="glass overflow-hidden">
-            <CardContent className="p-8 md:p-12">
-              <div className="flex flex-col md:flex-row items-center gap-8">
-                <div className="w-32 h-32 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center flex-shrink-0">
-                  <GraduationCap className="w-16 h-16 text-white" />
+          <Card className="glass max-w-4xl mx-auto">
+            <CardContent className="p-8">
+              <div className="flex flex-col lg:flex-row items-start gap-8">
+
+                {/* Left: logo + info */}
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 flex-1">
+                  <div className="w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <GraduationCap className="w-12 h-12 text-white" />
+                  </div>
+                  <div className="text-center sm:text-left">
+                    <Badge className="bg-primary-100 text-primary-700 mb-3">
+                      {language === 'nl' && 'Officiële Partner'}
+                      {language === 'en' && 'Official Partner'}
+                      {language === 'de' && 'Offizieller Partner'}
+                    </Badge>
+                    <h3 className="text-2xl font-bold text-neutral-800 mb-1">
+                      {text.partner.name}
+                    </h3>
+                    <p className="text-primary-600 font-medium mb-3">
+                      {text.partner.tagline}
+                    </p>
+                    <p className="text-neutral-600 leading-relaxed">
+                      {text.partner.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-center md:text-left flex-1">
-                  <Badge className="bg-primary-100 text-primary-700 mb-3">
-                    {language === 'nl' && 'Officiële Partner'}
-                    {language === 'en' && 'Official Partner'}
-                    {language === 'de' && 'Offizieller Partner'}
-                  </Badge>
-                  <h3 className="text-3xl font-bold text-neutral-800 mb-2">
-                    {text.partner.name}
-                  </h3>
-                  <p className="text-primary-600 font-medium text-lg mb-4">
-                    {text.partner.tagline}
-                  </p>
-                  <p className="text-neutral-600 leading-relaxed max-w-2xl mb-4">
-                    {text.partner.description}
-                  </p>
-                  <Button className="btn-primary" asChild>
-                    <a href={`mailto:${text.partner.email}`}>
-                      {language === 'nl' && 'Mail Fresh Skateschool'}
-                      {language === 'en' && 'Email Fresh Skateschool'}
-                      {language === 'de' && 'Fresh Skateschool mailen'}
+
+                {/* Right: sign-up card */}
+                <div className="w-full lg:w-72 shrink-0 bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl p-6 text-white flex flex-col gap-4 overflow-visible">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="inline-block bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">
+                        {language === 'nl' && '🛹 Schrijf je nu in!'}
+                        {language === 'en' && '🛹 Sign up now!'}
+                        {language === 'de' && '🛹 Jetzt anmelden!'}
+                      </span>
+                      <WaitlistTooltip language={language} />
+                    </div>
+                    <p className="text-primary-100 text-sm leading-relaxed mb-3">
+                      {language === 'nl' && 'Meld je aan via de website van Fresh Skateschool of stuur een mailtje.'}
+                      {language === 'en' && 'Sign up via the Fresh Skateschool website or send an email.'}
+                      {language === 'de' && 'Melde dich über die Website von Fresh Skateschool an oder schick eine E-Mail.'}
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <a
+                      href="https://freshskateschool.nl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold py-2.5 px-4 rounded-xl hover:bg-primary-50 transition-colors text-sm"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      {text.cta}
                     </a>
-                  </Button>
+                    <a
+                      href={`mailto:${text.partner.email}`}
+                      className="flex items-center justify-center gap-2 bg-white/15 text-white font-medium py-2.5 px-4 rounded-xl hover:bg-white/25 transition-colors text-sm border border-white/20"
+                    >
+                      {language === 'nl' && 'Of mail ons'}
+                      {language === 'en' && 'Or email us'}
+                      {language === 'de' && 'Oder maile uns'}
+                    </a>
+                  </div>
                 </div>
+
               </div>
             </CardContent>
           </Card>
@@ -370,43 +437,7 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
           </div>
         </motion.div>
 
-        {/* Note */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
-          <div className="bg-primary-50 border border-primary-200 rounded-xl p-6 text-center">
-            <p className="text-primary-800">
-              {text.note}
-            </p>
-          </div>
-        </motion.div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <p className="text-neutral-600 mb-6">
-            {text.visitWebsite}
-          </p>
-          <Button 
-            size="lg" 
-            className="btn-primary text-lg px-8 py-4"
-            asChild
-          >
-            <a href="https://freshskateschool.nl" target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="w-5 h-5 mr-2" />
-              {text.cta}
-            </a>
-          </Button>
-        </motion.div>
       </div>
     </section>
   );
