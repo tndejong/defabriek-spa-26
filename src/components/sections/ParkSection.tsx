@@ -188,15 +188,38 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
           ))}
         </motion.div>
 
-        {/* Photo Mosaic */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-32"
-        >
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+        {/* Photo Gallery */}
+        <div className="mb-32">
+          {/* Mobile + Tablet: auto-scrolling marquee */}
+          <div className="lg:hidden overflow-hidden py-8 -my-8">
+            <div className="marquee-track marquee-track--nopause gap-5" style={{ animationDuration: '28s' }}>
+              {[...polaroidImages, ...polaroidImages].map((img, index) => (
+                <div
+                  key={index}
+                  className="shrink-0 bg-white p-3 pb-8 shadow-xl"
+                  style={{ rotate: `${img.rotate}deg`, transform: `rotate(${img.rotate}deg)` }}
+                >
+                  <div className="w-40 h-28 overflow-hidden bg-neutral-100">
+                    <img
+                      src={img.src}
+                      alt={`Skatepark De Fabriek - ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: flex wrap polaroid grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="hidden lg:flex flex-wrap justify-center gap-6"
+          >
             {polaroidImages.map((img, index) => (
               <motion.div
                 key={img.src}
@@ -208,7 +231,7 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
                 whileHover={{ scale: 1.08, rotate: 0, zIndex: 10, transition: { duration: 0.2 } }}
                 viewport={{ once: true }}
               >
-                <div className="w-44 h-32 sm:w-52 sm:h-36 overflow-hidden bg-neutral-100">
+                <div className="w-52 h-36 overflow-hidden bg-neutral-100">
                   <img
                     src={img.src}
                     alt={`Skatepark De Fabriek - ${index + 1}`}
@@ -218,11 +241,11 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 mb-32">
           {text.features.map((feature, index) => (
             <motion.div
               key={index}
@@ -234,16 +257,16 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
               className="group"
             >
               <Card className="h-full glass hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-neutral-50">
-                <CardHeader className="text-center pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <feature.icon className="w-8 h-8 text-white" />
+                <CardHeader className="text-center pb-2 lg:pb-4">
+                  <div className="w-10 h-10 lg:w-16 lg:h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-2 lg:mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <feature.icon className="w-5 h-5 lg:w-8 lg:h-8 text-white" />
                   </div>
-                  <CardTitle className="text-xl font-semibold text-neutral-800">
+                  <CardTitle className="text-sm lg:text-xl font-semibold text-neutral-800">
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="text-center">
-                  <p className="text-neutral-600 leading-relaxed">
+                <CardContent className="text-center pt-0 lg:pt-4">
+                  <p className="text-xs lg:text-base text-neutral-600 leading-relaxed">
                     {feature.description}
                   </p>
                 </CardContent>
