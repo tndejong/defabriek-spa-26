@@ -42,7 +42,7 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'park', 'kosten', 'open', 'verhaal', 'lessen', 'team', 'contact'];
+      const sections = ['home', 'park', 'kosten', 'open', 'verhaal', 'lessen', 'team', 'faq', 'contact', 'sponsors'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -53,7 +53,7 @@ function App() {
             setCurrentSection(section);
             if (!trackedSections.current.has(section)) {
               trackedSections.current.add(section);
-              track('section_view', { section });
+              track(`${section}_viewed`);
             }
             break;
           }
