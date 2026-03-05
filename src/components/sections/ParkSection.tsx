@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Clock, Award, Heart } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
+import TrickCounter from '../TrickCounter';
 import type { Language } from '../../App';
 
 interface ParkSectionProps {
@@ -136,6 +137,18 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
 
   const text = content[language];
 
+  const [userTricks, setUserTricks] = useState(0);
+
+  // Bubble intensity scales with the user's personal trick count
+  const t = Math.min(userTricks / 400, 1); // 0 → 1 over first 400 clicks
+  const bubbleOpacity  = 0.06 + t * 0.50;  // 0.06 (barely visible) → 0.56 (blazing)
+  const sizeScale      = 0.5  + t * 1.2;   // 0.5× → 1.7× base size
+  const blurPx         = Math.round(28 - t * 16); // 28px (soft) → 12px (sharp/intense)
+  const animSpeed      = 12   - t * 5;      // 12s (lazy) → 7s (energetic)
+
+  const bubble = (rgba: string) =>
+    `radial-gradient(circle, ${rgba} 0%, transparent 70%)`;
+
   return (
     <section id="park" className="section-padding bg-gradient-to-br from-neutral-50 via-white to-primary-50">
       <div className="container-max">
@@ -186,6 +199,53 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Trick Counter */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="flex justify-center mb-32"
+        >
+          <div className="relative rounded-3xl px-8 py-10 shadow-xl border border-neutral-100 w-full max-w-2xl overflow-hidden bg-white">
+            {/* Intensity-driven red light bubbles — grow stronger with more tricks */}
+            <motion.div
+              animate={{ x: [0, 120, 40, 160, 0], y: [0, 70, 150, 30, 0] }}
+              transition={{ duration: animSpeed, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -top-8 -left-8 rounded-full pointer-events-none"
+              style={{ width: `${Math.round(224 * sizeScale)}px`, height: `${Math.round(224 * sizeScale)}px`, background: bubble(`rgba(239,68,68,${bubbleOpacity})`), filter: `blur(${blurPx}px)` }}
+            />
+            <motion.div
+              animate={{ x: [0, -90, -50, -130, 0], y: [0, 60, -40, 90, 0] }}
+              transition={{ duration: animSpeed * 1.3, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -top-6 right-0 rounded-full pointer-events-none"
+              style={{ width: `${Math.round(192 * sizeScale)}px`, height: `${Math.round(192 * sizeScale)}px`, background: bubble(`rgba(220,38,38,${bubbleOpacity * 0.9})`), filter: `blur(${blurPx + 4}px)` }}
+            />
+            <motion.div
+              animate={{ x: [0, 70, -70, 40, 0], y: [0, -50, 50, -90, 0] }}
+              transition={{ duration: animSpeed * 0.85, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute bottom-0 left-1/4 rounded-full pointer-events-none"
+              style={{ width: `${Math.round(240 * sizeScale)}px`, height: `${Math.round(240 * sizeScale)}px`, background: bubble(`rgba(239,68,68,${bubbleOpacity * 0.8})`), filter: `blur(${blurPx + 2}px)` }}
+            />
+            <motion.div
+              animate={{ x: [0, -50, 90, -20, 0], y: [0, -70, -20, 55, 0] }}
+              transition={{ duration: animSpeed * 1.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute bottom-0 right-1/4 rounded-full pointer-events-none"
+              style={{ width: `${Math.round(176 * sizeScale)}px`, height: `${Math.round(176 * sizeScale)}px`, background: bubble(`rgba(185,28,28,${bubbleOpacity})`), filter: `blur(${blurPx - 2}px)` }}
+            />
+            <motion.div
+              animate={{ x: [0, 55, -35, 110, 0], y: [0, 90, -70, 45, 0] }}
+              transition={{ duration: animSpeed * 1.1, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute top-1/2 left-0 rounded-full pointer-events-none"
+              style={{ width: `${Math.round(160 * sizeScale)}px`, height: `${Math.round(160 * sizeScale)}px`, background: bubble(`rgba(239,68,68,${bubbleOpacity * 0.7})`), filter: `blur(${blurPx + 3}px)` }}
+            />
+            {/* Content */}
+            <div className="relative z-10">
+              <TrickCounter language={language} onUserCountChange={setUserTricks} />
+            </div>
+          </div>
         </motion.div>
 
         {/* Photo Gallery */}

@@ -2,6 +2,12 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
+);
 
 const app = express();
 app.use(cors());
@@ -69,6 +75,53 @@ app.post('/api/contact', async (req, res) => {
     res.status(500).json({ error: 'Kon bericht niet versturen', details: msg });
   }
 });
+
+// --- Trick Counter ---
+
+app.get('/api/counter', async (_req, res) => {
+  const { data, error } = await supabase
+    .from('trick_counter')
+    .select('count')
+    .eq('id', 1)
+    .single();
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json({ count: data.count });
+});
+
+app.post('/api/counter/increment', async (req, res) => {
+  const { slug, username } = req.body || {};
+  // Increment global counter
+  const { data: globalData, error: globalError } = await supabase.rpc('increment_trick_counter');
+  if (globalError) return res.status(500).json({ error: globalError.message });
+
+  // Increment user counter if slug provided
+  let userCount = null;
+  if (slug && username) {
+    const { data: userData, error: userError } = await supabase.rpc('increment_user_tricks', {
+      p_slug: slug,
+      p_username: username,
+    });
+    if (!userError) userCount = userData;
+  }
+
+  res.json({ count: globalData, userCount });
+});
+
+// --- Leaderboard ---
+
+app.get('/api/leaderboard', async (_req, res) => {
+  const { data, error } = await supabase
+    .from('trick_leaderboard')
+    .select('slug, username, count')
+    .order('count', { ascending: false })
+    .limit(10);
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json({ leaderboard: data });
+});
+
+// ---------------------
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
