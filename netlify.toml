@@ -8,26 +8,10 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# Route API calls to Netlify Functions before the SPA catch-all
-[[redirects]]
-  from = "/api/contact"
-  to = "/.netlify/functions/contact"
-  status = 200
-
-[[redirects]]
-  from = "/api/counter"
-  to = "/.netlify/functions/counter"
-  status = 200
-
-[[redirects]]
-  from = "/api/counter/increment"
-  to = "/.netlify/functions/counter"
-  status = 200
-
-[[redirects]]
-  from = "/api/leaderboard"
-  to = "/.netlify/functions/leaderboard"
-  status = 200
+# API routes are handled by Netlify Functions via config.path in each function file
+# contact.js  → /api/contact
+# counter.js  → /api/counter + /api/counter/increment
+# leaderboard.js → /api/leaderboard
 
 # Handle SPA routing - redirect all other routes to index.html
 [[redirects]]

@@ -1,14 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
-
 const headers = { 'Content-Type': 'application/json' };
 
 export default async (req) => {
-  // GET — return current global count
+  const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_ANON_KEY
+  );
+
   if (req.method === 'GET') {
     const { data, error } = await supabase
       .from('trick_counter')
@@ -20,7 +19,6 @@ export default async (req) => {
     return new Response(JSON.stringify({ count: data.count }), { status: 200, headers });
   }
 
-  // POST — increment global + optional user counter
   if (req.method === 'POST') {
     const { slug, username } = await req.json().catch(() => ({}));
 
@@ -42,4 +40,4 @@ export default async (req) => {
   return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405, headers });
 };
 
-export const config = { path: '/api/counter' };
+export const config = { path: ['/api/counter', '/api/counter/increment'] };
