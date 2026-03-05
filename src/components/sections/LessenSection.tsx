@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { GraduationCap, Users, Calendar, CheckCircle, ExternalLink, Snowflake, Sun, MapPin, Info } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import { Badge } from '../ui/badge';
-import { Button } from '../ui/button';
 import type { Language } from '../../App';
 
 interface LessenSectionProps {
