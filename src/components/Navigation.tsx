@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import type { Language } from '../App';
+import { track } from '../lib/analytics';
 
 interface NavigationProps {
   currentSection: string;
@@ -93,7 +94,7 @@ const Navigation: React.FC<NavigationProps> = ({
               <div className="hidden sm:block relative">
                 <select
                   value={language}
-                  onChange={(e) => onLanguageChange(e.target.value as Language)}
+                  onChange={(e) => { const lang = e.target.value as Language; track('language_change', { to: lang }); onLanguageChange(lang); }}
                   className="appearance-none bg-white/80 border border-neutral-200 rounded-lg pl-3 pr-8 py-2 text-sm font-medium text-neutral-700 hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent cursor-pointer min-w-[5rem]"
                 >
                   {languages.map((lang) => (
@@ -137,7 +138,9 @@ const Navigation: React.FC<NavigationProps> = ({
                   id="mobile-lang"
                   value={language}
                   onChange={(e) => {
-                    onLanguageChange(e.target.value as Language);
+                    const lang = e.target.value as Language;
+                    track('language_change', { to: lang });
+                    onLanguageChange(lang);
                     setIsMenuOpen(false);
                   }}
                   className="w-full appearance-none bg-neutral-50 border border-neutral-300 rounded-lg px-4 py-3 text-base font-medium text-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"

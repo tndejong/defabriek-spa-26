@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, CheckCircle, AlertCircle, ChevronDown } from 'lucide-react';
 import type { Language } from '../App';
+import { track } from '../lib/analytics';
 
 interface ChatWidgetProps {
   language: Language;
@@ -83,6 +84,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ language }) => {
           message: form.message,
         }),
       });
+      if (res.ok) { track('chat_message_sent', { language }); }
       setStatus(res.ok ? 'success' : 'error');
     } catch {
       setStatus('error');
@@ -208,7 +210,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ language }) => {
 
       {/* Trigger button */}
       <motion.button
-        onClick={() => { setIsOpen(prev => !prev); }}
+        onClick={() => { const next = !isOpen; setIsOpen(next); if (next) track('chat_widget_open'); }}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         className="flex items-center gap-2.5 bg-primary-600 hover:bg-primary-700 text-white pl-4 pr-5 py-3 rounded-full shadow-lg transition-colors duration-200"

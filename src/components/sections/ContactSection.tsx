@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Send, Instagram, Facebook } from 'lucide-react';
+import { track } from '../../lib/analytics';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
@@ -190,6 +191,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
       clearTimeout(timeoutId);
       const data = await res.json().catch(() => ({}));
       if (res.ok) {
+        track('contact_form_sent');
         setSubmitStatus('success');
         setFormData({ firstName: '', lastName: '', email: '', message: '' });
       } else {

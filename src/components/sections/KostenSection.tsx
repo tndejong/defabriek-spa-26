@@ -1,9 +1,10 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { Sparkles, ParkingCircle, CreditCard, HelpCircle, Check } from 'lucide-react';
 import type { Language } from '../../App';
+import { track } from '../../lib/analytics';
 
 interface KostenSectionProps {
   language: Language;
@@ -147,6 +148,12 @@ const KostenSection: React.FC<KostenSectionProps> = ({ language }) => {
 
   const text = content[language];
 
+  const strippenkaartRef = useRef(null);
+  const strippenkaartInView = useInView(strippenkaartRef, { once: true });
+  React.useEffect(() => {
+    if (strippenkaartInView) track('strippenkaart_viewed');
+  }, [strippenkaartInView]);
+
   return (
     <section id="kosten" className="section-padding bg-gradient-to-br from-neutral-50 to-primary-50">
       <div className="container-max">
@@ -178,6 +185,7 @@ const KostenSection: React.FC<KostenSectionProps> = ({ language }) => {
           {text.cards.map((card, index) => (
             <motion.div
               key={index}
+              ref={card.highlight ? strippenkaartRef : undefined}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}

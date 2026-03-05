@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Users, Share2, Copy, Check, ChevronDown } from 'lucide-react';
 import type { Language } from '../App';
+import { track } from '../lib/analytics';
 
 interface VolunteerWidgetProps {
   language: Language;
@@ -83,12 +84,14 @@ const VolunteerWidget: React.FC<VolunteerWidgetProps> = ({ language }) => {
   const t = content[language];
 
   const handleMailto = () => {
+    track('volunteer_apply', { language });
     const subject = encodeURIComponent(t.mailSubject);
     const body = encodeURIComponent(t.mailBodyTemplate(name, age));
     window.open(`mailto:info@defabriek.org?subject=${subject}&body=${body}`, '_blank');
   };
 
   const handleShare = async () => {
+    track('site_share', { method: 'native' });
     try {
       await navigator.share({ title: 'De Fabriek – Skatepark', text: t.shareText, url: SITE_URL });
     } catch {
@@ -97,6 +100,7 @@ const VolunteerWidget: React.FC<VolunteerWidgetProps> = ({ language }) => {
   };
 
   const handleCopy = async () => {
+    track('site_share', { method: 'copy_link' });
     try {
       await navigator.clipboard.writeText(SITE_URL);
       setCopied(true);
@@ -242,7 +246,7 @@ const VolunteerWidget: React.FC<VolunteerWidgetProps> = ({ language }) => {
 
       {/* Trigger button */}
       <motion.button
-        onClick={() => setIsOpen((v) => !v)}
+        onClick={() => { const next = !isOpen; setIsOpen(next); if (next) track('volunteer_widget_open'); }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className="flex items-center gap-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-4 py-3 rounded-2xl shadow-lg hover:shadow-xl transition-shadow font-semibold text-sm"
