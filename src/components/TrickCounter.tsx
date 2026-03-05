@@ -26,7 +26,7 @@ interface Milestone {
   size: 'normal' | 'big' | 'legendary';
 }
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_API_URL ?? '';
 const STORAGE_SLUG = 'trick_slug';
 const STORAGE_USERNAME = 'trick_username';
 
