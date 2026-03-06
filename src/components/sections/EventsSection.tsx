@@ -141,7 +141,7 @@ const EventsSection: React.FC<EventsSectionProps> = ({ language }) => {
                   onClick={() => setSelectedEvent(event)}
                   className="w-full text-left"
                 >
-                  <Card className="glass h-full hover:shadow-xl transition-all duration-300 cursor-pointer">
+                  <Card className="glass h-full hover:shadow-xl transition-all duration-300 cursor-pointer backdrop-blur-xl bg-white/80 border-2 border-white/40 shadow-lg">
                     <CardContent className="p-6 flex flex-col h-full">
                       <div className="flex items-center gap-2 mb-3">
                         <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold">
