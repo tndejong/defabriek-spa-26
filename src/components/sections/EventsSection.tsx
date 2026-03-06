@@ -49,7 +49,6 @@ function formatDate(dateStr: string, language: Language): string {
 const EventsSection: React.FC<EventsSectionProps> = ({ language }) => {
   const t = content[language];
   const [selectedEvent, setSelectedEvent] = useState<EventPost | null>(null);
-  const [embedReady, setEmbedReady] = useState(false);
 
   const events = (eventsData as EventPost[]).sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -70,28 +69,39 @@ const EventsSection: React.FC<EventsSectionProps> = ({ language }) => {
     return () => { document.body.style.overflow = ''; };
   }, [selectedEvent]);
 
-  // Instagram embed — reset en laad opnieuw per event
+  // Instagram embed — process() na modal open + eventueel opnieuw na delay (iframe resize kan haperen in transformed containers)
   useEffect(() => {
-    setEmbedReady(false);
     if (!selectedEvent?.instagramEmbedHtml) return;
-    const process = () => {
-      (window as any).instgrm?.Embeds.process();
-      setEmbedReady(true);
+
+    const runProcess = () => {
+      (window as any).instgrm?.Embeds?.process();
     };
+
+    const scheduleProcess = () => {
+      // Eerst direct, dan opnieuw na 400ms (modal-animatie klaar) — Instagram's postMessage resize werkt soms niet binnen getransformeerde ouders
+      runProcess();
+      const retry = setTimeout(runProcess, 400);
+      return () => clearTimeout(retry);
+    };
+
+    let cleanup: (() => void) | undefined;
+
     if ((window as any).instgrm) {
-      process();
+      cleanup = scheduleProcess();
     } else {
       const existing = document.querySelector('script[src*="instagram.com/embed.js"]') as HTMLScriptElement | null;
       if (existing) {
-        existing.addEventListener('load', process);
+        existing.addEventListener('load', () => { cleanup = scheduleProcess(); });
       } else {
         const script = document.createElement('script');
-        script.src = '//www.instagram.com/embed.js';
+        script.src = 'https://www.instagram.com/embed.js';
         script.async = true;
-        script.onload = process;
+        script.onload = () => { cleanup = scheduleProcess(); };
         document.body.appendChild(script);
       }
     }
+
+    return () => cleanup?.();
   }, [selectedEvent?.slug]);
 
   return (
@@ -177,13 +187,13 @@ const EventsSection: React.FC<EventsSectionProps> = ({ language }) => {
                 onClick={() => setSelectedEvent(null)}
               />
 
-              {/* Panel — wrapper centreert via flexbox, motion.div doet alleen animatie */}
+              {/* Panel — geen scale/y transform op panel (breekt Instagram iframe postMessage resize) */}
               <div className="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none">
               <motion.div
                 key="panel"
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.25, ease: 'easeOut' }}
                 className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto scrollbar-hide bg-white rounded-2xl shadow-2xl pointer-events-auto"
               >
@@ -221,11 +231,11 @@ const EventsSection: React.FC<EventsSectionProps> = ({ language }) => {
                     ))}
                   </div>
 
-                  {/* Instagram embed — alleen tonen als script geladen is */}
-                  {selectedEvent.instagramEmbedHtml && embedReady && (
+                  {/* Instagram embed — direct renderen, embed.js verwerkt via process() */}
+                  {selectedEvent.instagramEmbedHtml && (
                     <div className="flex justify-center mb-6">
                       <div
-                        className="w-full max-w-sm"
+                        className="w-full max-w-sm instagram-embed-container"
                         dangerouslySetInnerHTML={{ __html: selectedEvent.instagramEmbedHtml }}
                       />
                     </div>

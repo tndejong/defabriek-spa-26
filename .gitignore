@@ -50,3 +50,6 @@ vite.config.ts.timestamp-*
 # Misc
 *.bak
 *.tmp
+
+# Claude plans & AI working files
+.claude/
