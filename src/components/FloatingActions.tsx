@@ -35,6 +35,12 @@ const FloatingActions: React.FC<FloatingActionsProps> = ({ language }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [activePanel]);
 
+  useEffect(() => {
+    const handler = () => toggle('volunteer');
+    window.addEventListener('open-volunteer-widget', handler);
+    return () => window.removeEventListener('open-volunteer-widget', handler);
+  }, []);
+
   const toggle = (panel: 'chat' | 'volunteer') => {
     // Clear any pending open
     if (timerRef.current) clearTimeout(timerRef.current);

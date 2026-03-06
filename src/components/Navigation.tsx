@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import type { Language } from '../App';
@@ -20,9 +21,9 @@ const Navigation: React.FC<NavigationProps> = ({
   onNavigate
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navItems = [
-    { id: 'home', label: { nl: 'Home', en: 'Home', de: 'Start' } },
     { id: 'park', label: { nl: 'Park', en: 'Park', de: 'Park' } },
     { id: 'kosten', label: { nl: 'Kosten', en: 'Costs', de: 'Kosten' } },
     { id: 'open', label: { nl: 'Open', en: 'Open', de: 'Öffnen' } },
@@ -49,43 +50,48 @@ const Navigation: React.FC<NavigationProps> = ({
         <div className="container-max px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <motion.div
+            <motion.button
+              onClick={() => navigate('/')}
               className="flex items-center space-x-2"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <img 
-                src="/images/logo.png" 
-                alt="De Fabriek Logo" 
+              <img
+                src="/images/logo.png"
+                alt="De Fabriek Logo"
                 className="w-8 h-8 object-contain"
               />
               <span className="text-xl font-bold text-gradient">De Fabriek</span>
-            </motion.div>
+            </motion.button>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-6">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => onNavigate(item.id)}
-                  className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                    currentSection === item.id
-                      ? 'text-primary-600'
-                      : 'text-neutral-700 hover:text-primary-600'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {item.label[language]}
-                  {currentSection === item.id && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute inset-0 bg-primary-100 rounded-lg -z-10"
-                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </motion.button>
-              ))}
+            <div className="hidden lg:flex items-center space-x-1">
+              {navItems.map((item) => {
+                const isActive = currentSection === item.id;
+                return (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => onNavigate(item.id)}
+                    className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                      isActive
+                        ? 'text-primary-600'
+                        : 'text-neutral-700 hover:text-primary-600'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {item.label[language]}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute inset-0 bg-primary-100 rounded-lg -z-10"
+                        transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                  </motion.button>
+                );
+              })}
+
             </div>
 
             {/* Language Switcher & Mobile Menu */}
@@ -154,31 +160,35 @@ const Navigation: React.FC<NavigationProps> = ({
               </div>
 
               {/* Mobile Navigation Items */}
-              {navItems.map((item, index) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => {
-                    onNavigate(item.id);
-                    setIsMenuOpen(false);
-                  }}
-                  className={`w-full text-left px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${
-                    currentSection === item.id
-                      ? 'bg-primary-100 text-primary-700'
-                      : 'text-neutral-700 hover:bg-neutral-100 hover:text-primary-600'
-                  }`}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {item.label[language]}
-                  {currentSection === item.id && (
-                    <Badge variant="default" className="ml-2 text-xs">
-                      Active
-                    </Badge>
-                  )}
-                </motion.button>
-              ))}
+              {navItems.map((item, index) => {
+                const isActive = currentSection === item.id;
+                return (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => {
+                      onNavigate(item.id);
+                      setIsMenuOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${
+                      isActive
+                        ? 'bg-primary-100 text-primary-700'
+                        : 'text-neutral-700 hover:bg-neutral-100 hover:text-primary-600'
+                    }`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {item.label[language]}
+                    {isActive && (
+                      <Badge variant="default" className="ml-2 text-xs">
+                        Active
+                      </Badge>
+                    )}
+                  </motion.button>
+                );
+              })}
+
             </div>
           </motion.div>
         )}

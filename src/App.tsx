@@ -13,6 +13,7 @@ import ContactSection from './components/sections/ContactSection';
 import FaqSection from './components/sections/FaqSection';
 import { track } from './lib/analytics';
 import InstagramSection from './components/sections/InstagramSection';
+import EventsSection from './components/sections/EventsSection';
 import ReviewsSection from './components/sections/ReviewsSection';
 import SponsorsSection from './components/sections/SponsorsSection';
 import FloatingActions from './components/FloatingActions';
@@ -41,7 +42,7 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'park', 'kosten', 'open', 'verhaal', 'lessen', 'team', 'faq', 'contact', 'sponsors'];
+      const sections = ['home', 'park', 'kosten', 'open', 'verhaal', 'lessen', 'team', 'faq', 'contact', 'sponsors', 'events'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -101,6 +102,7 @@ function App() {
               >
                 <Hero language={language} onNavigate={scrollToSection} />
                 <InstagramSection language={language} />
+                <EventsSection language={language} />
                 <ParkSection language={language} />
                 <ReviewsSection language={language} />
                 <KostenSection language={language} />
