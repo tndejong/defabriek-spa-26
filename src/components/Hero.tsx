@@ -79,7 +79,7 @@ const statusLabels = {
   nl: {
     open: 'We zijn nu open!',
     closed: 'Nu gesloten',
-    busy: 'Druk in het park 🔥',
+    busy: 'Gezellig in het park 🔥',
     quiet: 'Lekker rustig vandaag',
   },
   en: {
@@ -245,7 +245,7 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
                   {parkStatus.isBusy ? statusLabels[language].busy : statusLabels[language].quiet}
                 </span>
                 <span className="text-xs text-neutral-500">
-                  {parkStatus.isBusy ? 'Za & zo zijn drukke dagen' : 'Kom gerust langs!'}
+                  {parkStatus.isBusy ? 'Za & zo is het park erg actief!' : 'Kom gerust langs!'}
                 </span>
               </div>
             </motion.div>
