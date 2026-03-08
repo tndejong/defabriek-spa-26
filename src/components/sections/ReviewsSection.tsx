@@ -27,19 +27,28 @@ const content = {
 const ReviewsSection: React.FC<ReviewsSectionProps> = ({ language }) => {
   const t = content[language];
   const widgetRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (!widgetRef.current) return;
-    if (widgetRef.current.querySelector('script[src*="trustmary"]')) return;
-    const s = document.createElement('script');
-    s.src = 'https://widget.trustmary.com/0U4aKlPV5';
-    s.async = true;
-    widgetRef.current.appendChild(s);
+    const el = sectionRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting || !widgetRef.current) return;
+        if (widgetRef.current.querySelector('script[src*="trustmary"]')) return;
+        const s = document.createElement('script');
+        s.src = 'https://widget.trustmary.com/0U4aKlPV5';
+        s.async = true;
+        widgetRef.current.appendChild(s);
+      },
+      { rootMargin: '100px' }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
-
   return (
-    <section id="reviews" className="py-20 bg-white">
+    <section id="reviews" ref={sectionRef} className="py-20 bg-white">
       <div className="container-max px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

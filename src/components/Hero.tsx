@@ -108,17 +108,24 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
   const parkStatus = getParkStatus();
 
   useEffect(() => {
-    fetch(
-      'https://api.open-meteo.com/v1/forecast?latitude=52.2215&longitude=6.8937&current=temperature_2m,weathercode&timezone=Europe%2FAmsterdam'
-    )
-      .then(r => r.json())
-      .then(data => {
-        const code: number = data.current.weathercode;
-        const temp: number = Math.round(data.current.temperature_2m);
-        const info = weatherMap[code] ?? { emoji: '🌡️', good: false };
-        setWeather({ emoji: info.emoji, temp, good: info.good });
-      })
-      .catch(() => {});
+    const loadWeather = () => {
+      fetch(
+        'https://api.open-meteo.com/v1/forecast?latitude=52.2215&longitude=6.8937&current=temperature_2m,weathercode&timezone=Europe%2FAmsterdam'
+      )
+        .then(r => r.json())
+        .then(data => {
+          const code: number = data.current.weathercode;
+          const temp: number = Math.round(data.current.temperature_2m);
+          const info = weatherMap[code] ?? { emoji: '🌡️', good: false };
+          setWeather({ emoji: info.emoji, temp, good: info.good });
+        })
+        .catch(() => {});
+    };
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(loadWeather, { timeout: 2000 });
+    } else {
+      setTimeout(loadWeather, 500);
+    }
   }, []);
 
   // Cycle through badges every 4 seconds — skip busyness badge when closed
@@ -176,9 +183,9 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
 
       {/* Cycling status badges */}
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
+        initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 1.4 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
         className="absolute top-20 left-4 sm:left-8 z-20 w-64"
       >
         <AnimatePresence mode="wait">
@@ -259,9 +266,9 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
         <div className="text-center max-w-4xl mx-auto">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.25 }}
             className="mb-6"
           >
             <Badge variant="secondary" className="px-4 py-2 text-sm font-medium">
@@ -271,9 +278,9 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
 
           {/* Title */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.3 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
           >
             <span className="text-gradient block">{text.titleIntro}</span>
@@ -282,19 +289,19 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
 
           {/* Subtitle */}
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.3, delay: 0.05 }}
             className="text-xl md:text-2xl lg:text-3xl text-neutral-600 mb-8 font-light"
           >
             {text.subtitle}
           </motion.h2>
 
-          {/* Description */}
+          {/* Description — LCP element: minimale delay voor snelle weergave */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.25, delay: 0.08 }}
             className="text-lg md:text-xl text-neutral-700 mb-12 max-w-2xl mx-auto leading-relaxed"
           >
             {text.description}
@@ -302,9 +309,9 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.3, delay: 0.15 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
             <Button
@@ -327,9 +334,9 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
 
           {/* Feature badges */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             className="flex flex-wrap justify-center gap-3"
           >
             {text.badges.map((badge, index) => (
@@ -349,7 +356,7 @@ const Hero: React.FC<HeroProps> = ({ language, onNavigate }) => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.2 }}
+        transition={{ duration: 0.3, delay: 0.35 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <motion.button

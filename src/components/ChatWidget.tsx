@@ -108,7 +108,10 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ language, isOpen, onClose }) =>
           <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-5 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
-                <img src="/images/logo.png" alt="De Fabriek" className="w-6 h-6 object-contain" />
+                <picture className="block">
+                  <source srcSet="/images/logo.webp" type="image/webp" />
+                  <img src="/images/logo.png" alt="De Fabriek" className="w-6 h-6 object-contain block" width={24} height={21} />
+                </picture>
               </div>
               <div>
                 <p className="text-white font-semibold text-sm leading-tight">{t.title}</p>

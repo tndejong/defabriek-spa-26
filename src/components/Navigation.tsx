@@ -56,11 +56,16 @@ const Navigation: React.FC<NavigationProps> = ({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <img
-                src="/images/logo.png"
-                alt="De Fabriek Logo"
-                className="w-8 h-8 object-contain"
-              />
+              <picture className="block">
+                <source srcSet="/images/logo.webp" type="image/webp" />
+                <img
+                  src="/images/logo.png"
+                  alt="De Fabriek Logo"
+                  className="w-8 h-8 object-contain block"
+                  width={32}
+                  height={28}
+                />
+              </picture>
               <span className="text-xl font-bold text-gradient">De Fabriek</span>
             </motion.button>
 
@@ -118,6 +123,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 size="icon"
                 className="lg:hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label={isMenuOpen ? 'Menu sluiten' : 'Menu openen'}
               >
                 {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </Button>

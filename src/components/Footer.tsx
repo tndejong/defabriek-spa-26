@@ -147,7 +147,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
                   className="bg-neutral-800 border-neutral-700 hover:bg-primary-600 hover:border-primary-600"
                   asChild
                 >
-                  <a href="https://www.instagram.com/skateparkdefabriek/" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.instagram.com/skateparkdefabriek/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <Instagram className="w-5 h-5" />
                   </a>
                 </Button>
@@ -157,7 +157,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
                   className="bg-neutral-800 border-neutral-700 hover:bg-primary-600 hover:border-primary-600"
                   asChild
                 >
-                  <a href="https://www.facebook.com/svdefabriek/" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.facebook.com/svdefabriek/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                     <Facebook className="w-5 h-5" />
                   </a>
                 </Button>

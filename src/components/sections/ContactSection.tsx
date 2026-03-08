@@ -310,10 +310,11 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                      <label htmlFor="contact-firstName" className="block text-sm font-medium text-neutral-700 mb-2">
                         {text.form.firstName}
                       </label>
                       <input
+                        id="contact-firstName"
                         type="text"
                         name="firstName"
                         value={formData.firstName}
@@ -323,10 +324,11 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                      <label htmlFor="contact-lastName" className="block text-sm font-medium text-neutral-700 mb-2">
                         {text.form.lastName}
                       </label>
                       <input
+                        id="contact-lastName"
                         type="text"
                         name="lastName"
                         value={formData.lastName}
@@ -338,10 +340,11 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-neutral-700 mb-2">
+                    <label htmlFor="contact-email" className="block text-sm font-medium text-neutral-700 mb-2">
                       {text.form.email}
                     </label>
                     <input
+                      id="contact-email"
                       type="email"
                       name="email"
                       value={formData.email}
@@ -352,10 +355,11 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-neutral-700 mb-2">
+                    <label htmlFor="contact-message" className="block text-sm font-medium text-neutral-700 mb-2">
                       {text.form.message}
                     </label>
                     <textarea
+                      id="contact-message"
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}

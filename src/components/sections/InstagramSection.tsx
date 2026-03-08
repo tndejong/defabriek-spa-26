@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { Language } from '../../App';
 
@@ -26,17 +26,28 @@ const content = {
 
 const InstagramSection: React.FC<InstagramSectionProps> = ({ language }) => {
   const t = content[language];
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (document.querySelector('script[src="https://w.behold.so/widget.js"]')) return;
-    const s = document.createElement('script');
-    s.type = 'module';
-    s.src = 'https://w.behold.so/widget.js';
-    document.head.append(s);
+    const el = sectionRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting) return;
+        if (document.querySelector('script[src="https://w.behold.so/widget.js"]')) return;
+        const s = document.createElement('script');
+        s.type = 'module';
+        s.src = 'https://w.behold.so/widget.js';
+        document.head.append(s);
+      },
+      { rootMargin: '100px' }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
   return (
-    <section id="instagram" className="py-20 bg-white">
+    <section id="instagram" ref={sectionRef} className="py-20 bg-white">
       <div className="container-max px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
