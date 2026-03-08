@@ -3,12 +3,78 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://defabriek.org/</loc>
-    <lastmod>2026-03-07</lastmod>
+    <lastmod>2026-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://defabriek.org/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://defabriek.org/" />
     <xhtml:link rel="alternate" hreflang="de" href="https://defabriek.org/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://defabriek.org/" />
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/hoe-leer-je-skateboarden/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/welk-skateboard-kopen-beginner/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/beste-indoor-skateparken-nederland/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/skatelessen-kinderen/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/ollie-leren-stap-voor-stap/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/indoor-vs-outdoor-skateboarden/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/skateboarden-voor-volwassenen/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/veilig-skateboarden-bescherming/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/skateparken-enschede-overijssel/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://defabriek.org/blog/kosten-skateboarden-beginners/</loc>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
