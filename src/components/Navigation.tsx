@@ -96,13 +96,13 @@ const Navigation: React.FC<NavigationProps> = ({
                   </motion.button>
                 );
               })}
+              <a
+                href="/blog/"
+                className="relative px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors duration-200"
+              >
+                Blog
+              </a>
             </div>
-            <a
-              href="/blog/"
-              className="relative px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors duration-200"
-            >
-              Blog
-            </a>
 
             {/* Language Switcher & Mobile Menu */}
             <div className="flex items-center space-x-4">
