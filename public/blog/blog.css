@@ -238,15 +238,17 @@ tr:nth-child(even) td { background: var(--light); }
   text-align: center;
 }
 
+article.post-body .cta-block h2,
 .cta-block h2 {
   border: none;
   padding: 0;
-  color: #fff;
+  color: #fff !important;
   margin-top: 0;
   font-size: 1.3rem;
 }
 
-.cta-block p { color: #d1d5db; margin-bottom: 1.25rem; }
+article.post-body .cta-block p,
+.cta-block p { color: #d1d5db !important; margin-bottom: 1.25rem; }
 
 .btn-red {
   display: inline-block;
