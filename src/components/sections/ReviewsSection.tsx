@@ -35,11 +35,12 @@ const ReviewsSection: React.FC<ReviewsSectionProps> = ({ language }) => {
     const obs = new IntersectionObserver(
       (entries) => {
         if (!entries[0]?.isIntersecting || !widgetRef.current) return;
-        if (widgetRef.current.querySelector('script[src*="trustmary"]')) return;
+        if (document.getElementById('EmbedSocialHashtagScript')) return;
         const s = document.createElement('script');
-        s.src = 'https://widget.trustmary.com/0U4aKlPV5';
+        s.id = 'EmbedSocialHashtagScript';
+        s.src = 'https://embedsocial.com/cdn/ht.js';
         s.async = true;
-        widgetRef.current.appendChild(s);
+        document.head.appendChild(s);
       },
       { rootMargin: '100px' }
     );
@@ -74,7 +75,13 @@ const ReviewsSection: React.FC<ReviewsSectionProps> = ({ language }) => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <div ref={widgetRef} />
+          <div
+            ref={widgetRef}
+            className="embedsocial-hashtag"
+            data-ref="64098d7fc9b98b5d4e0b441d05324371fe40a703"
+            data-dynamicload="yes"
+            data-lazyload="yes"
+          />
         </motion.div>
       </div>
     </section>
