@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina niet gevonden | De Fabriek Skatepark Enschede</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/images/favicon.ico">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      background: #111827;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 3rem;
+      text-decoration: none;
+    }
+
+    .logo-dot {
+      width: 12px;
+      height: 12px;
+      background: #dc2626;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .logo-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .error-code {
+      font-size: clamp(5rem, 20vw, 9rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0 0 1rem;
+    }
+
+    h1 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 700;
+      margin: 0 0 0.75rem;
+      color: #fff;
+    }
+
+    p {
+      color: #9ca3af;
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: opacity 0.15s, transform 0.1s;
+      box-shadow: 0 4px 20px rgba(220,38,38,0.35);
+    }
+
+    .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .countdown {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .countdown span {
+      color: #dc2626;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="logo">
+    <div class="logo-dot"></div>
+    <span class="logo-name">De Fabriek</span>
+  </a>
+
+  <div class="error-code">404</div>
+  <h1>Pagina niet gevonden</h1>
+  <p>Deze pagina bestaat niet (meer). Je wordt automatisch teruggestuurd naar de homepage van De Fabriek skatepark Enschede.</p>
+
+  <a href="/" class="btn">Terug naar de homepage →</a>
+
+  <p class="countdown">Automatisch doorgestuurd over <span id="s">5</span> seconden</p>
+
+  <script>
+    var n = 5;
+    var el = document.getElementById('s');
+    var t = setInterval(function () {
+      n--;
+      el.textContent = n;
+      if (n <= 0) { clearInterval(t); window.location.replace('/'); }
+    }, 1000);
+  </script>
+</body>
+</html>
