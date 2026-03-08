@@ -96,13 +96,13 @@ const Navigation: React.FC<NavigationProps> = ({
                   </motion.button>
                 );
               })}
-              <a
-                href="/blog/"
-                className="relative px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors duration-200"
-              >
-                Blog
-              </a>
             </div>
+            <a
+              href="/blog/"
+              className="relative px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors duration-200"
+            >
+              Blog
+            </a>
 
             {/* Language Switcher & Mobile Menu */}
             <div className="flex items-center space-x-4">
@@ -171,13 +171,6 @@ const Navigation: React.FC<NavigationProps> = ({
               </div>
 
               {/* Mobile Navigation Items */}
-              <a
-                href="/blog/"
-                className="w-full block text-left px-4 py-3 text-base font-medium rounded-lg text-neutral-700 hover:bg-neutral-100 hover:text-primary-600 transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Blog
-              </a>
               {navItems.map((item, index) => {
                 const isActive = currentSection === item.id;
                 return (
@@ -206,6 +199,13 @@ const Navigation: React.FC<NavigationProps> = ({
                   </motion.button>
                 );
               })}
+              <a
+                href="/blog/"
+                className="w-full block text-left px-4 py-3 text-base font-medium rounded-lg text-neutral-700 hover:bg-neutral-100 hover:text-primary-600 transition-all duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blog
+              </a>
 
             </div>
           </motion.div>
