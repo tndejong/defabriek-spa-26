@@ -51,9 +51,10 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Handle SPA routing - redirect all other routes to index.html
+# Redirect unknown routes (e.g. /story, /park) to homepage
+# Static files (blog, images, api) are served directly before this rule is checked
 [[redirects]]
   from = "/*"
-  to = "/index.html"
-  status = 200
+  to = "/"
+  status = 301
 
