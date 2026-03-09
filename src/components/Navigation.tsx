@@ -51,7 +51,7 @@ const Navigation: React.FC<NavigationProps> = ({
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <motion.button
-              onClick={() => navigate('/')}
+              onClick={() => { navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className="flex items-center space-x-2"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

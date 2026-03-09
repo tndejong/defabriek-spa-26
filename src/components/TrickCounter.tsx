@@ -139,8 +139,8 @@ const TrickCounter: React.FC<TrickCounterProps> = ({ language, onUserCountChange
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [bump, setBump] = useState(false);
 
-  const [slug, setSlug] = useState<string>(() => localStorage.getItem(STORAGE_SLUG) || '');
-  const [username, setUsername] = useState<string>(() => localStorage.getItem(STORAGE_USERNAME) || '');
+  const [slug, setSlug] = useState<string>(() => typeof localStorage !== 'undefined' ? localStorage.getItem(STORAGE_SLUG) || '' : '');
+  const [username, setUsername] = useState<string>(() => typeof localStorage !== 'undefined' ? localStorage.getItem(STORAGE_USERNAME) || '' : '');
   const [userCount, setUserCount] = useState<number | null>(null);
 
   const [showPrompt, setShowPrompt] = useState(false);

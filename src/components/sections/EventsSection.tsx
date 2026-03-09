@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Users, X } from 'lucide-react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Calendar } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import type { Language } from '../../App';
 import type { EventPost } from '../../types/event';
@@ -17,24 +17,18 @@ const content = {
     title: 'Laatste events',
     subtitle: 'Bekijk wat er bij De Fabriek is gebeurd.',
     readMore: 'Lees meer',
-    volunteer: 'Word vrijwilliger',
-    volunteerText: 'Wil jij ook bijdragen aan events zoals deze?',
   },
   en: {
     badge: 'Events',
     title: 'Latest events',
     subtitle: 'See what has been happening at De Fabriek.',
     readMore: 'Read more',
-    volunteer: 'Become a volunteer',
-    volunteerText: 'Do you also want to contribute to events like this?',
   },
   de: {
     badge: 'Events',
     title: 'Neueste Events',
     subtitle: 'Schau was bei De Fabriek passiert ist.',
     readMore: 'Mehr lesen',
-    volunteer: 'Freiwilliger werden',
-    volunteerText: 'Möchtest du auch zu Events wie diesem beitragen?',
   },
 };
 
@@ -48,61 +42,10 @@ function formatDate(dateStr: string, language: Language): string {
 
 const EventsSection: React.FC<EventsSectionProps> = ({ language }) => {
   const t = content[language];
-  const [selectedEvent, setSelectedEvent] = useState<EventPost | null>(null);
 
   const events = (eventsData as EventPost[]).sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
-
-  // Sluit modal met Escape
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedEvent(null);
-    };
-    document.addEventListener('keydown', handleKey);
-    return () => document.removeEventListener('keydown', handleKey);
-  }, []);
-
-  // Blokkeer body scroll terwijl modal open is
-  useEffect(() => {
-    document.body.style.overflow = selectedEvent ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [selectedEvent]);
-
-  // Instagram embed — process() na modal open + eventueel opnieuw na delay (iframe resize kan haperen in transformed containers)
-  useEffect(() => {
-    if (!selectedEvent?.instagramEmbedHtml) return;
-
-    const runProcess = () => {
-      (window as any).instgrm?.Embeds?.process();
-    };
-
-    const scheduleProcess = () => {
-      // Eerst direct, dan opnieuw na 400ms (modal-animatie klaar) — Instagram's postMessage resize werkt soms niet binnen getransformeerde ouders
-      runProcess();
-      const retry = setTimeout(runProcess, 400);
-      return () => clearTimeout(retry);
-    };
-
-    let cleanup: (() => void) | undefined;
-
-    if ((window as any).instgrm) {
-      cleanup = scheduleProcess();
-    } else {
-      const existing = document.querySelector('script[src*="instagram.com/embed.js"]') as HTMLScriptElement | null;
-      if (existing) {
-        existing.addEventListener('load', () => { cleanup = scheduleProcess(); });
-      } else {
-        const script = document.createElement('script');
-        script.src = 'https://www.instagram.com/embed.js';
-        script.async = true;
-        script.onload = () => { cleanup = scheduleProcess(); };
-        document.body.appendChild(script);
-      }
-    }
-
-    return () => cleanup?.();
-  }, [selectedEvent?.slug]);
 
   return (
     <section id="events" className="section-padding bg-gradient-to-br from-neutral-50 via-white to-primary-50">
@@ -137,10 +80,7 @@ const EventsSection: React.FC<EventsSectionProps> = ({ language }) => {
                 viewport={{ once: true }}
                 whileHover={{ y: -4 }}
               >
-                <button
-                  onClick={() => setSelectedEvent(event)}
-                  className="w-full text-left"
-                >
+                <Link to={`/events/${event.slug}`} className="block h-full">
                   <Card className="glass h-full hover:shadow-xl transition-all duration-300 cursor-pointer backdrop-blur-xl bg-white/80 border-2 border-white/40 shadow-lg">
                     <CardContent className="p-6 flex flex-col h-full">
                       <div className="flex items-center gap-2 mb-3">
@@ -163,107 +103,12 @@ const EventsSection: React.FC<EventsSectionProps> = ({ language }) => {
                       </span>
                     </CardContent>
                   </Card>
-                </button>
+                </Link>
               </motion.div>
             );
           })}
         </div>
       </div>
-
-      {/* Modal — via portal zodat fixed positioning niet beïnvloed wordt door parent transforms */}
-      {createPortal(<AnimatePresence>
-        {selectedEvent && (() => {
-          const translation = selectedEvent.translations[language];
-          return (
-            <>
-              {/* Overlay */}
-              <motion.div
-                key="overlay"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="fixed inset-0 bg-black/60 z-50"
-                onClick={() => setSelectedEvent(null)}
-              />
-
-              {/* Panel — geen scale/y transform op panel (breekt Instagram iframe postMessage resize) */}
-              <div className="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none">
-              <motion.div
-                key="panel"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25, ease: 'easeOut' }}
-                className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto scrollbar-hide bg-white rounded-2xl shadow-2xl pointer-events-auto"
-              >
-                {/* Sluit-knop */}
-                <button
-                  onClick={() => setSelectedEvent(null)}
-                  className="absolute top-4 right-4 p-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 transition-colors"
-                >
-                  <X className="w-4 h-4 text-neutral-600" />
-                </button>
-
-                <div className="p-6 sm:p-8">
-                  {/* Meta */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-primary-100 text-primary-700 text-xs font-semibold">
-                      {selectedEvent.label}
-                    </span>
-                    <span className="flex items-center gap-1.5 text-neutral-400 text-sm">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {formatDate(selectedEvent.date, language)}
-                    </span>
-                  </div>
-
-                  {/* Titel */}
-                  <h2 className="text-2xl font-bold text-neutral-900 mb-5 leading-tight pr-8">
-                    {translation.title}
-                  </h2>
-
-                  {/* Body */}
-                  <div className="mb-6 space-y-3">
-                    {translation.body.split('\n\n').map((paragraph, i) => (
-                      <p key={i} className="text-neutral-700 leading-relaxed text-sm">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-
-                  {/* Instagram embed — direct renderen, embed.js verwerkt via process() */}
-                  {selectedEvent.instagramEmbedHtml && (
-                    <div className="flex justify-center mb-6">
-                      <div
-                        className="w-full max-w-sm instagram-embed-container"
-                        dangerouslySetInnerHTML={{ __html: selectedEvent.instagramEmbedHtml }}
-                      />
-                    </div>
-                  )}
-
-                  {/* CTA vrijwilliger */}
-                  <div className="bg-gradient-to-br from-primary-600 to-primary-800 rounded-xl p-5 text-center text-white">
-                    <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-3">
-                      <Users className="w-5 h-5 text-white" />
-                    </div>
-                    <p className="text-primary-100 text-sm mb-3">{t.volunteerText}</p>
-                    <button
-                      onClick={() => {
-                        setSelectedEvent(null);
-                        setTimeout(() => window.dispatchEvent(new CustomEvent('open-volunteer-widget')), 150);
-                      }}
-                      className="inline-flex items-center gap-2 bg-white text-primary-700 font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-50 transition-colors text-sm"
-                    >
-                      {t.volunteer}
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-              </div>
-            </>
-          );
-        })()}
-      </AnimatePresence>, document.body)}
     </section>
   );
 };
