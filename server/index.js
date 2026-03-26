@@ -39,7 +39,13 @@ if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) 
 app.post('/api/contact', async (req, res) => {
   console.log('📩 Contact form received');
   try {
-    const { name, email, subject, message } = req.body;
+    const { name, email, subject, message, website } = req.body;
+
+    // Honeypot: bots often fill optional "website" fields; humans never see this field.
+    if (website != null && String(website).trim() !== '') {
+      console.log('Contact: honeypot filled, skipping mail');
+      return res.json({ success: true, message: 'Bericht verzonden' });
+    }
 
     if (!name || !email || !subject || !message) {
       return res.status(400).json({ error: 'Alle velden zijn verplicht' });

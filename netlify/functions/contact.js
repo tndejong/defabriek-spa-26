@@ -9,7 +9,16 @@ export default async (req) => {
   }
 
   try {
-    const { name, email, subject, message } = await req.json();
+    const { name, email, subject, message, website } = await req.json();
+
+    // Honeypot: bots often fill optional "website" fields; humans never see this field.
+    if (website != null && String(website).trim() !== '') {
+      console.log('Contact: honeypot filled, skipping mail');
+      return new Response(JSON.stringify({ success: true, message: 'Bericht verzonden' }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
     if (!name || !email || !subject || !message) {
       return new Response(JSON.stringify({ error: 'Alle velden zijn verplicht' }), {

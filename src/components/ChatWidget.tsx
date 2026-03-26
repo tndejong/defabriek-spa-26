@@ -14,6 +14,8 @@ interface FormState {
   name: string;
   email: string;
   message: string;
+  /** Honeypot — must stay empty */
+  website: string;
 }
 
 const content = {
@@ -59,7 +61,7 @@ const content = {
 };
 
 const ChatWidget: React.FC<ChatWidgetProps> = ({ language, isOpen, onClose }) => {
-  const [form, setForm] = useState<FormState>({ name: '', email: '', message: '' });
+  const [form, setForm] = useState<FormState>({ name: '', email: '', message: '', website: '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const t = content[language];
 
@@ -80,6 +82,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ language, isOpen, onClose }) =>
           email: form.email,
           subject: 'Chat widget bericht',
           message: form.message,
+          website: form.website,
         }),
       });
       if (res.ok) { track('chat_message_sent', { language }); }
@@ -90,7 +93,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ language, isOpen, onClose }) =>
   };
 
   const reset = () => {
-    setForm({ name: '', email: '', message: '' });
+    setForm({ name: '', email: '', message: '', website: '' });
     setStatus('idle');
   };
 
@@ -134,7 +137,17 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ language, isOpen, onClose }) =>
                   <button onClick={reset} className="text-sm text-primary-600 hover:text-primary-700 font-medium">{t.newMessage}</button>
                 </motion.div>
               ) : (
-                <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onSubmit={handleSubmit} className="space-y-3">
+                <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onSubmit={handleSubmit} className="space-y-3 relative">
+                  <div className="absolute -left-[9999px] top-0 h-0 w-0 overflow-hidden" aria-hidden="true">
+                    <input
+                      type="text"
+                      name="website"
+                      value={form.website}
+                      onChange={handleChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
                   <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder={t.namePlaceholder}
                     className="w-full px-3 py-2.5 text-sm border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent placeholder:text-neutral-400 transition" />
                   <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder={t.emailPlaceholder}

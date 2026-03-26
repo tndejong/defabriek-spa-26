@@ -16,7 +16,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
     firstName: '',
     lastName: '',
     email: '',
-    message: ''
+    message: '',
+    /** Honeypot — must stay empty (bots fill hidden fields). */
+    website: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -185,6 +187,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
           email: formData.email,
           subject: 'Contactformulier',
           message: formData.message,
+          website: formData.website,
         }),
         signal: controller.signal,
       });
@@ -193,7 +196,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
       if (res.ok) {
         track('contact_form_sent');
         setSubmitStatus('success');
-        setFormData({ firstName: '', lastName: '', email: '', message: '' });
+        setFormData({ firstName: '', lastName: '', email: '', message: '', website: '' });
       } else {
         setSubmitStatus('error');
         setErrorMessage(data?.details || data?.error || '');
@@ -308,6 +311,20 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Honeypot: off-screen, no real user interaction */}
+                  <div
+                    className="absolute -left-[9999px] top-0 h-0 w-0 overflow-hidden"
+                    aria-hidden="true"
+                  >
+                    <input
+                      type="text"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleInputChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="contact-firstName" className="block text-sm font-medium text-neutral-700 mb-2">
