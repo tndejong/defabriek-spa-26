@@ -8,6 +8,7 @@ import OpenSection from '../components/sections/OpenSection';
 import VerhaalSection from '../components/sections/VerhaalSection';
 import LessenSection from '../components/sections/LessenSection';
 import TeamSection from '../components/sections/TeamSection';
+import SkateTeamSection from '../components/sections/SkateTeamSection';
 import ContactSection from '../components/sections/ContactSection';
 import FaqSection from '../components/sections/FaqSection';
 import InstagramSection from '../components/sections/InstagramSection';
@@ -77,6 +78,7 @@ const HomePage: React.FC = () => {
       <VerhaalSection language={language} />
       <LessenSection language={language} />
       <TeamSection language={language} />
+      <SkateTeamSection language={language} />
       <FaqSection language={language} />
       <ContactSection language={language} />
       <SponsorsSection language={language} />
