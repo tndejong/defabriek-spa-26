@@ -48,16 +48,16 @@ const weatherLabels = {
 
 // 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
 const schedule: Record<number, { open: string; close: string } | null> = {
-  0: { open: '13:00', close: '20:00' }, // Sunday
+  0: null, // Sunday – closed (tropenrooster)
   1: null,
   2: null,
-  3: { open: '18:30', close: '23:00' },
+  3: null, // Wednesday – closed (tropenrooster)
   4: { open: '18:30', close: '23:00' },
   5: { open: '18:30', close: '23:00' },
   6: { open: '13:00', close: '23:00' }, // Saturday
 };
 
-const busyDays = new Set([0, 6]); // Sun & Sat
+const busyDays = new Set([6]); // Sat
 
 function parseTime(t: string) {
   const [h, m] = t.split(':').map(Number);
