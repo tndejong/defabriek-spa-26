@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 import type {} from 'vite-react-ssg'
 
 const eventSlugs = [
+  'skate-cypher-september-2026',
   'spion-x-de-fabriek-mei-2026',
   'faboleuze-avond-januari-2026',
   'battle-at-the-border-november-2025',

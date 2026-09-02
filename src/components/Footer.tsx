@@ -74,9 +74,16 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
               viewport={{ once: true }}
             >
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">D</span>
-                </div>
+                <picture className="block">
+                  <source srcSet="/images/logo.webp" type="image/webp" />
+                  <img
+                    src="/images/logo.png"
+                    alt="De Fabriek Logo"
+                    className="w-10 h-10 object-contain block"
+                    width={40}
+                    height={34}
+                  />
+                </picture>
                 <span className="text-2xl font-bold text-white">{text.title}</span>
               </div>
               <p className="text-neutral-300 mb-6 leading-relaxed">
