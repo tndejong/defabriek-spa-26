@@ -20,11 +20,11 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
       schedule: [
         { day: 'Maandag', hours: 'Dicht', closed: true },
         { day: 'Dinsdag', hours: 'Dicht', closed: true },
-        { day: 'Woensdag', hours: 'Dicht (tropenrooster)', closed: true },
+        { day: 'Woensdag', hours: '18:30 - 23:00', closed: false },
         { day: 'Donderdag', hours: '18:30 - 23:00', closed: false },
         { day: 'Vrijdag', hours: '18:30 - 23:00', closed: false },
         { day: 'Zaterdag', hours: '13:00 - 23:00', closed: false },
-        { day: 'Zondag', hours: 'Dicht (tropenrooster)', closed: true },
+        { day: 'Zondag', hours: '13:00 - 20:00', closed: false },
       ],
       notices: {
         title: 'Let op',
@@ -46,7 +46,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
         {
           icon: Calendar,
           title: 'Vrijblijvend Toegankelijk',
-          content: 'Do t/m Za',
+          content: 'Wo t/m Zo',
           description: 'Kom gewoon langs, geen reservering',
           link: null
         },
@@ -67,11 +67,11 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
       schedule: [
         { day: 'Monday', hours: 'Closed', closed: true },
         { day: 'Tuesday', hours: 'Closed', closed: true },
-        { day: 'Wednesday', hours: 'Closed (summer schedule)', closed: true },
+        { day: 'Wednesday', hours: '18:30 - 23:00', closed: false },
         { day: 'Thursday', hours: '18:30 - 23:00', closed: false },
         { day: 'Friday', hours: '18:30 - 23:00', closed: false },
         { day: 'Saturday', hours: '13:00 - 23:00', closed: false },
-        { day: 'Sunday', hours: 'Closed (summer schedule)', closed: true },
+        { day: 'Sunday', hours: '13:00 - 20:00', closed: false },
       ],
       notices: {
         title: 'Please note',
@@ -93,7 +93,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
         {
           icon: Calendar,
           title: 'Freely Accessible',
-          content: 'Thu - Sat',
+          content: 'Wed - Sun',
           description: 'Just drop in, no reservation',
           link: null
         },
@@ -114,11 +114,11 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
       schedule: [
         { day: 'Montag', hours: 'Geschlossen', closed: true },
         { day: 'Dienstag', hours: 'Geschlossen', closed: true },
-        { day: 'Mittwoch', hours: 'Geschlossen (Sommerplan)', closed: true },
+        { day: 'Mittwoch', hours: '18:30 - 23:00', closed: false },
         { day: 'Donnerstag', hours: '18:30 - 23:00', closed: false },
         { day: 'Freitag', hours: '18:30 - 23:00', closed: false },
         { day: 'Samstag', hours: '13:00 - 23:00', closed: false },
-        { day: 'Sonntag', hours: 'Geschlossen (Sommerplan)', closed: true },
+        { day: 'Sonntag', hours: '13:00 - 20:00', closed: false },
       ],
       notices: {
         title: 'Bitte beachten',
@@ -140,7 +140,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
         {
           icon: Calendar,
           title: 'Unverbindlich Zugänglich',
-          content: 'Do - Sa',
+          content: 'Mi - So',
           description: 'Einfach vorbeikommen, keine Reservierung',
           link: null
         },
