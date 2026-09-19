@@ -48,7 +48,7 @@ const EventsSection: React.FC<EventsSectionProps> = ({ language }) => {
   );
 
   return (
-    <section id="events" className="section-padding bg-gradient-to-br from-neutral-50 via-white to-primary-50">
+    <section id="events" className="section-padding section-glow">
       <div className="container-max px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

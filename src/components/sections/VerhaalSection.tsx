@@ -223,7 +223,7 @@ const VerhaalSection: React.FC<VerhaalSectionProps> = ({ language }) => {
   const text = content[language];
 
   return (
-    <section id="verhaal" className="section-padding bg-gradient-to-br from-primary-50 via-white to-secondary-50">
+    <section id="verhaal" className="section-padding section-glow">
       <div className="container-max">
         {/* Header */}
         <motion.div

@@ -47,6 +47,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
 
   const quickLinks = [
     { label: { nl: 'Park', en: 'Park', de: 'Park' }, href: '#park' },
+    { label: { nl: 'Abonnementen', en: 'Memberships', de: 'Abonnements' }, href: '#abonnementen' },
     { label: { nl: 'Lessen', en: 'Lessons', de: 'Lektionen' }, href: '#lessen' },
     { label: { nl: 'Bestuur', en: 'Board', de: 'Vorstand' }, href: '#team' },
     { label: { nl: 'FAQ', en: 'FAQ', de: 'FAQ' }, href: '#faq' },

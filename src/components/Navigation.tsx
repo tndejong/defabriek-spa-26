@@ -26,6 +26,7 @@ const Navigation: React.FC<NavigationProps> = ({
   const navItems = [
     { id: 'park', label: { nl: 'Park', en: 'Park', de: 'Park' } },
     { id: 'kosten', label: { nl: 'Kosten', en: 'Costs', de: 'Kosten' } },
+    { id: 'abonnementen', label: { nl: 'Abos', en: 'Plans', de: 'Abos' } },
     { id: 'open', label: { nl: 'Open', en: 'Open', de: 'Öffnen' } },
     { id: 'verhaal', label: { nl: 'Verhaal', en: 'Story', de: 'Geschichte' } },
     { id: 'lessen', label: { nl: 'Lessen', en: 'Lessons', de: 'Lektionen' } },

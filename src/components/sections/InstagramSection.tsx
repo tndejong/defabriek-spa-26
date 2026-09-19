@@ -47,7 +47,7 @@ const InstagramSection: React.FC<InstagramSectionProps> = ({ language }) => {
   }, []);
 
   return (
-    <section id="instagram" ref={sectionRef} className="py-20 bg-white">
+    <section id="instagram" ref={sectionRef} className="py-20 section-surface">
       <div className="container-max px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

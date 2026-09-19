@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
 import ParkSection from '../components/sections/ParkSection';
 import KostenSection from '../components/sections/KostenSection';
+import AbonnementenSection from '../components/sections/AbonnementenSection';
 import OpenSection from '../components/sections/OpenSection';
 import VerhaalSection from '../components/sections/VerhaalSection';
 import LessenSection from '../components/sections/LessenSection';
@@ -12,6 +13,7 @@ import SkateTeamSection from '../components/sections/SkateTeamSection';
 import ContactSection from '../components/sections/ContactSection';
 import FaqSection from '../components/sections/FaqSection';
 import InstagramSection from '../components/sections/InstagramSection';
+import AboPromoSection from '../components/sections/AboPromoSection';
 import EventsSection from '../components/sections/EventsSection';
 import ReviewsSection from '../components/sections/ReviewsSection';
 import SponsorsSection from '../components/sections/SponsorsSection';
@@ -25,7 +27,7 @@ const HomePage: React.FC = () => {
   // Scroll naar #sectie bij laden (bijv. na redirect van /open naar /#open)
   useEffect(() => {
     const hash = window.location.hash.slice(1);
-    if (hash && ['home', 'park', 'kosten', 'open', 'verhaal', 'lessen', 'team', 'contact'].includes(hash)) {
+    if (hash && ['home', 'park', 'kosten', 'abonnementen', 'open', 'verhaal', 'lessen', 'team', 'contact'].includes(hash)) {
       const scroll = () => {
         const element = document.getElementById(hash);
         if (element) {
@@ -38,7 +40,7 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'park', 'kosten', 'open', 'verhaal', 'lessen', 'team', 'faq', 'contact', 'sponsors', 'events'];
+      const sections = ['home', 'park', 'kosten', 'abonnementen', 'open', 'verhaal', 'lessen', 'team', 'faq', 'contact', 'sponsors', 'events'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -69,11 +71,13 @@ const HomePage: React.FC = () => {
       transition={{ duration: 0.2 }}
     >
       <Hero language={language} onNavigate={scrollToSection} />
+      <AboPromoSection language={language} onNavigate={scrollToSection} />
       <InstagramSection language={language} />
       <EventsSection language={language} />
       <ParkSection language={language} />
       <ReviewsSection language={language} />
       <KostenSection language={language} />
+      <AbonnementenSection language={language} />
       <OpenSection language={language} />
       <VerhaalSection language={language} />
       <LessenSection language={language} />

@@ -127,7 +127,7 @@ const FaqSection: React.FC<FaqSectionProps> = ({ language }) => {
   const t = faqContent[language];
 
   return (
-    <section id="faq" className="section-padding bg-gradient-to-br from-neutral-50 via-white to-primary-50 scroll-mt-16">
+    <section id="faq" className="section-padding section-glow scroll-mt-16">
       <div className="container-max">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

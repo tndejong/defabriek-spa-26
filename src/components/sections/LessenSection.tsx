@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, Users, Calendar, CheckCircle, ExternalLink, Snowflake, Sun, MapPin, Info } from 'lucide-react';
-import { Card, CardContent } from '../ui/card';
 import { Badge } from '../ui/badge';
 import type { Language } from '../../App';
 
@@ -13,31 +12,6 @@ const waitlistMsg: Record<string, string> = {
   nl: 'Door grote belangstelling kan er een wachtlijst zijn.',
   en: 'Due to high demand, there may be a waiting list.',
   de: 'Aufgrund der hohen Nachfrage kann es eine Warteliste geben.',
-};
-
-const WaitlistTooltip: React.FC<{ language: string }> = ({ language }) => {
-  const [show, setShow] = useState(true);
-  return (
-    <div className="relative inline-flex items-center">
-      <button
-        type="button"
-        onMouseEnter={() => setShow(true)}
-        onMouseLeave={() => setShow(false)}
-        onFocus={() => setShow(true)}
-        onBlur={() => setShow(false)}
-        className="text-yellow-300/70 hover:text-yellow-200 transition-colors focus:outline-none"
-        aria-label="Wachtlijst informatie"
-      >
-        <Info className="w-4 h-4 animate-pulse" />
-      </button>
-      {show && (
-        <div className="absolute bottom-full right-0 mb-2 w-52 bg-neutral-900 text-white text-xs rounded-xl px-3 py-2 shadow-xl leading-snug z-50 pointer-events-none sm:right-auto sm:left-1/2 sm:-translate-x-1/2">
-          ⚠️ {waitlistMsg[language]}
-          <div className="absolute top-full right-3 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 border-4 border-transparent border-t-neutral-900" />
-        </div>
-      )}
-    </div>
-  );
 };
 
 const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
@@ -209,234 +183,113 @@ const LessenSection: React.FC<LessenSectionProps> = ({ language }) => {
   const text = content[language];
 
   return (
-    <section id="lessen" className="section-padding bg-white">
-      <div className="container-max">
-        {/* Header */}
+    <section id="lessen" className="section-padding section-surface">
+      <div className="container-max max-w-5xl">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <Badge variant="outline" className="mb-4">
-            🎓 Skateboard Lessen
-          </Badge>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <Badge variant="outline" className="mb-4">{text.subtitle}</Badge>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="text-gradient">{text.title}</span>
           </h2>
-          <h3 className="text-xl md:text-2xl text-neutral-600 mb-8 font-light">
-            {text.subtitle}
-          </h3>
-          <p className="text-lg text-neutral-700 max-w-4xl mx-auto leading-relaxed">
-            {text.description}
+          <p className="text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+            {text.partner.description}
           </p>
         </motion.div>
 
-        {/* Partner Card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-14 rounded-2xl border border-neutral-100 bg-white p-6 md:p-8 shadow-sm"
         >
-          <Card className="glass max-w-4xl mx-auto">
-            <CardContent className="p-8">
-              <div className="flex flex-col lg:flex-row items-start gap-8">
-
-                {/* Left: logo + info */}
-                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 flex-1">
-                  <div className="w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <GraduationCap className="w-12 h-12 text-white" />
-                  </div>
-                  <div className="text-center sm:text-left">
-                    <Badge className="bg-primary-100 text-primary-700 mb-3">
-                      {language === 'nl' && 'Officiële Partner'}
-                      {language === 'en' && 'Official Partner'}
-                      {language === 'de' && 'Offizieller Partner'}
-                    </Badge>
-                    <h3 className="text-2xl font-bold text-neutral-800 mb-1">
-                      {text.partner.name}
-                    </h3>
-                    <p className="text-primary-600 font-medium mb-3">
-                      {text.partner.tagline}
-                    </p>
-                    <p className="text-neutral-600 leading-relaxed">
-                      {text.partner.description}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Right: sign-up card */}
-                <div className="w-full lg:w-72 shrink-0 bg-gradient-to-br from-primary-600 to-primary-800 rounded-2xl p-6 text-white flex flex-col gap-4 overflow-visible">
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="inline-block bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">
-                        {language === 'nl' && '🛹 Schrijf je nu in!'}
-                        {language === 'en' && '🛹 Sign up now!'}
-                        {language === 'de' && '🛹 Jetzt anmelden!'}
-                      </span>
-                      <WaitlistTooltip language={language} />
-                    </div>
-                    <p className="text-primary-100 text-sm leading-relaxed mb-3">
-                      {language === 'nl' && 'Meld je aan via de website van Fresh Skateschool of stuur een mailtje.'}
-                      {language === 'en' && 'Sign up via the Fresh Skateschool website or send an email.'}
-                      {language === 'de' && 'Melde dich über die Website von Fresh Skateschool an oder schick eine E-Mail.'}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <a
-                      href="https://freshskateschool.nl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold py-2.5 px-4 rounded-xl hover:bg-primary-50 transition-colors text-sm"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      {text.cta}
-                    </a>
-                    <a
-                      href={`mailto:${text.partner.email}`}
-                      className="flex items-center justify-center gap-2 bg-white/15 text-white font-medium py-2.5 px-4 rounded-xl hover:bg-white/25 transition-colors text-sm border border-white/20"
-                    >
-                      {language === 'nl' && 'Of mail ons'}
-                      {language === 'en' && 'Or email us'}
-                      {language === 'de' && 'Oder maile uns'}
-                    </a>
-                  </div>
-                </div>
-
+          <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+            <div className="flex items-start gap-4 flex-1 min-w-0">
+              <div className="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shrink-0">
+                <GraduationCap className="w-7 h-7 text-white" />
               </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Seasons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <h3 className="text-3xl font-bold text-center mb-12 text-neutral-800">
-            {language === 'nl' && 'Leslocaties per Seizoen'}
-            {language === 'en' && 'Lesson Locations by Season'}
-            {language === 'de' && 'Unterrichtsorte pro Saison'}
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {text.seasons.map((season, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary-600 mb-1">
+                  {language === 'nl' && 'Officiële partner'}
+                  {language === 'en' && 'Official partner'}
+                  {language === 'de' && 'Offizieller Partner'}
+                </p>
+                <h3 className="text-xl font-bold text-neutral-900">{text.partner.name}</h3>
+                <p className="text-sm text-neutral-500">{text.partner.tagline}</p>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2 shrink-0">
+              <a
+                href="https://freshskateschool.nl"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-primary-600 text-white font-semibold py-2.5 px-4 rounded-xl hover:bg-primary-700 transition-colors text-sm"
               >
-                <Card className="glass h-full hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-8">
-                    <div className="flex items-start gap-6">
-                      <div className={`w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                        index === 0 
-                          ? 'bg-blue-100 text-blue-600' 
-                          : 'bg-yellow-100 text-yellow-600'
-                      }`}>
-                        <season.icon className="w-8 h-8" />
-                      </div>
-                      <div>
-                        <h4 className="text-xl font-bold text-neutral-800 mb-2">
-                          {season.title}
-                        </h4>
-                        <p className="text-primary-600 font-medium mb-2">
-                          {season.period}
-                        </p>
-                        <div className="flex items-center gap-2 text-neutral-600 mb-3">
-                          <MapPin className="w-4 h-4" />
-                          <span>{season.location}</span>
-                        </div>
-                        <p className="text-neutral-600">
-                          {season.description}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Offerings */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <h3 className="text-3xl font-bold text-center mb-12 text-neutral-800">
-            {language === 'nl' && 'Lesaanbod'}
-            {language === 'en' && 'Lesson Options'}
-            {language === 'de' && 'Unterrichtsangebot'}
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {text.offerings.map((offering, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
+                <ExternalLink className="w-4 h-4" />
+                {text.cta}
+              </a>
+              <a
+                href={`mailto:${text.partner.email}`}
+                className="inline-flex items-center justify-center gap-2 border border-neutral-200 text-neutral-700 font-medium py-2.5 px-4 rounded-xl hover:bg-neutral-50 transition-colors text-sm"
               >
-                <Card className="glass h-full text-center hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-8">
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center mx-auto mb-6">
-                      <offering.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h4 className="text-xl font-bold text-neutral-800 mb-3">
-                      {offering.title}
-                    </h4>
-                    <p className="text-neutral-600 leading-relaxed">
-                      {offering.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                {language === 'nl' && 'Mail'}
+                {language === 'en' && 'Email'}
+                {language === 'de' && 'Mail'}
+              </a>
+            </div>
           </div>
+          <p className="mt-4 text-xs text-neutral-500 flex items-center gap-1.5">
+            <Info className="w-3.5 h-3.5 shrink-0" />
+            {waitlistMsg[language]}
+          </p>
         </motion.div>
 
-        {/* Benefits */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {text.benefits.map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="flex items-center space-x-3 p-4 bg-neutral-50 rounded-lg"
-              >
-                <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0" />
-                <span className="text-neutral-700 leading-relaxed">
-                  {benefit}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+          {text.seasons.map((season, index) => (
+            <div key={season.title} className="flex gap-4 rounded-2xl border border-neutral-100 bg-white p-5">
+              <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${
+                index === 0 ? 'bg-sky-50 text-sky-600' : 'bg-amber-50 text-amber-600'
+              }`}>
+                <season.icon className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-neutral-900">{season.title}</h3>
+                <p className="text-sm text-primary-600 font-medium">{season.period}</p>
+                <p className="text-sm text-neutral-500 mt-1 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 shrink-0" />
+                  {season.location}
+                </p>
+                <p className="text-sm text-neutral-600 mt-2 leading-relaxed">{season.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
 
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          {text.offerings.map((offering) => (
+            <div key={offering.title} className="rounded-2xl border border-neutral-100 bg-white p-5">
+              <div className="w-10 h-10 bg-primary-50 text-primary-700 rounded-xl flex items-center justify-center mb-3">
+                <offering.icon className="w-5 h-5" />
+              </div>
+              <h3 className="font-semibold text-neutral-900 mb-1">{offering.title}</h3>
+              <p className="text-sm text-neutral-600 leading-relaxed">{offering.description}</p>
+            </div>
+          ))}
+        </div>
 
+        <ul className="flex flex-wrap justify-center gap-2">
+          {text.benefits.map((benefit) => (
+            <li key={benefit} className="inline-flex items-center gap-1.5 rounded-full bg-neutral-50 px-3 py-1.5 text-sm text-neutral-700">
+              <CheckCircle className="w-3.5 h-3.5 text-primary-600" />
+              {benefit}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

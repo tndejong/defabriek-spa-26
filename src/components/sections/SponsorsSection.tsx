@@ -50,7 +50,7 @@ const SponsorsSection: React.FC<SponsorsSectionProps> = ({ language }) => {
   const text = content[language];
 
   return (
-    <section id="sponsors" className="py-20 bg-neutral-50 overflow-hidden">
+    <section id="sponsors" className="py-20 section-glow overflow-hidden">
       <div className="container-max px-4 sm:px-6 lg:px-8 mb-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

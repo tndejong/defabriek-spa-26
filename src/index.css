@@ -68,6 +68,18 @@
     @apply px-4 py-16 md:px-8 lg:px-16;
   }
 
+  .section-surface {
+    @apply bg-white;
+  }
+
+  .section-glow {
+    background-color: #fff;
+    background-image:
+      radial-gradient(ellipse 90% 80% at 0% 10%, rgb(254 226 226 / 0.85), transparent 55%),
+      radial-gradient(ellipse 70% 60% at 100% 90%, rgb(254 202 202 / 0.4), transparent 50%),
+      linear-gradient(180deg, #fff8f7 0%, #ffffff 45%, #fef2f2 100%);
+  }
+
   .container-max {
     @apply max-w-7xl mx-auto;
   }

@@ -83,7 +83,7 @@ const SkateTeamSection: React.FC<SkateTeamSectionProps> = ({ language }) => {
   const text = content[language];
 
   return (
-    <section id="skateteam" className="section-padding bg-neutral-50">
+    <section id="skateteam" className="section-padding section-surface">
       <div className="container-max">
         {/* Header */}
         <motion.div

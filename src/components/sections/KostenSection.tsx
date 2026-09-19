@@ -155,7 +155,7 @@ const KostenSection: React.FC<KostenSectionProps> = ({ language }) => {
   }, [strippenkaartInView]);
 
   return (
-    <section id="kosten" className="section-padding bg-gradient-to-br from-neutral-50 to-primary-50">
+    <section id="kosten" className="section-padding section-surface">
       <div className="container-max">
 
         {/* Header */}

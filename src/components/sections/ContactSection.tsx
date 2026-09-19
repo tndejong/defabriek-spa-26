@@ -216,7 +216,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-white">
+    <section id="contact" className="section-padding section-surface">
       <div className="container-max">
         {/* Header */}
         <motion.div

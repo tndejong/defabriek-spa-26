@@ -150,7 +150,7 @@ const ParkSection: React.FC<ParkSectionProps> = ({ language }) => {
     `radial-gradient(circle, ${rgba} 0%, transparent 70%)`;
 
   return (
-    <section id="park" className="section-padding bg-gradient-to-br from-neutral-50 via-white to-primary-50">
+    <section id="park" className="section-padding section-surface">
       <div className="container-max">
         {/* Header */}
         <motion.div

@@ -49,7 +49,7 @@ const ReviewsSection: React.FC<ReviewsSectionProps> = ({ language }) => {
   }, []);
 
   return (
-    <section id="reviews" ref={sectionRef} className="py-20 bg-white">
+    <section id="reviews" ref={sectionRef} className="py-20 section-glow">
       <div className="container-max px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

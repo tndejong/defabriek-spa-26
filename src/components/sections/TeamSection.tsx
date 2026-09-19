@@ -42,7 +42,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({ language }) => {
   const text = content[language];
 
   return (
-    <section id="team" className="section-padding bg-gradient-to-br from-secondary-50 via-white to-primary-50">
+    <section id="team" className="section-padding section-glow">
       <div className="container-max">
         {/* Header */}
         <motion.div

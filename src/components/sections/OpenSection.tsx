@@ -158,7 +158,7 @@ const OpenSection: React.FC<OpenSectionProps> = ({ language }) => {
   const text = content[language];
 
   return (
-    <section id="open" className="section-padding bg-white">
+    <section id="open" className="section-padding section-surface">
       <div className="container-max">
         {/* Header */}
         <motion.div
