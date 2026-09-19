@@ -7,7 +7,7 @@ interface AbonnementenSectionProps {
   language: Language;
 }
 
-const MYSUBS_EMBED_SRC = 'https://www.mysubs.nl/embed/skatepark-de-fabriek.js';
+const MYSUBS_EMBED_SRC = 'https://www.mysubs.nl/embed/sv-de-fabriek.js';
 
 const content = {
   nl: {
