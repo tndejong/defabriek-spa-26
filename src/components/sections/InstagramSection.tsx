@@ -76,7 +76,7 @@ const InstagramSection: React.FC<InstagramSectionProps> = ({ language }) => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <div data-behold-id="uegjEBUJeE8e0an6Xs51" />
+          <div data-behold-id="uegjEBUJeE8e0an6Xs51" className="min-h-[280px]" />
         </motion.div>
       </div>
     </section>

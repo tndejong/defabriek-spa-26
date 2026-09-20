@@ -35,13 +35,16 @@ const AbonnementenSection: React.FC<AbonnementenSectionProps> = ({ language }) =
     const el = sectionRef.current;
     if (!el) return;
 
+    let cancelled = false;
     const load = () => {
-      if (document.querySelector(`script[src="${MYSUBS_EMBED_SRC}"]`)) return;
+      if (cancelled || document.querySelector(`script[src="${MYSUBS_EMBED_SRC}"]`)) return;
       const s = document.createElement('script');
       s.async = true;
       s.src = MYSUBS_EMBED_SRC;
       document.body.appendChild(s);
     };
+
+    const idle = window.setTimeout(load, 800);
 
     const obs = new IntersectionObserver(
       (entries) => {
@@ -49,17 +52,21 @@ const AbonnementenSection: React.FC<AbonnementenSectionProps> = ({ language }) =
         load();
         obs.disconnect();
       },
-      { rootMargin: '200px' }
+      { rootMargin: '600px' }
     );
     obs.observe(el);
-    return () => obs.disconnect();
+    return () => {
+      cancelled = true;
+      obs.disconnect();
+      window.clearTimeout(idle);
+    };
   }, []);
 
   return (
     <section
       id="abonnementen"
       ref={sectionRef}
-      className="section-padding section-glow"
+      className="section-padding section-glow scroll-mt-24"
     >
       <div className="container-max">
         <motion.div
@@ -86,7 +93,7 @@ const AbonnementenSection: React.FC<AbonnementenSectionProps> = ({ language }) =
           transition={{ duration: 0.6, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          <div id="mysubs-plans" />
+          <div id="mysubs-plans" className="min-h-[480px]" />
         </motion.div>
       </div>
     </section>

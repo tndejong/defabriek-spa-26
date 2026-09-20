@@ -24,13 +24,36 @@ function App() {
     if (typeof window !== 'undefined') window.scrollTo(0, 0);
   }, [pathname]);
 
+  const HEADER_OFFSET = 88;
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    } else {
+    if (!element) {
       navigate(`/#${sectionId}`);
+      return;
     }
+
+    const targetY = () =>
+      Math.max(0, element.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET);
+
+    window.scrollTo({ top: targetY(), behavior: 'smooth' });
+
+    let cancelled = false;
+    const cancel = () => {
+      cancelled = true;
+    };
+    window.addEventListener('wheel', cancel, { passive: true, once: true });
+    window.addEventListener('touchstart', cancel, { passive: true, once: true });
+
+    const realign = () => {
+      if (cancelled) return;
+      const y = targetY();
+      if (Math.abs(window.scrollY - y) > 32) {
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    };
+    window.setTimeout(realign, 500);
+    window.setTimeout(realign, 1200);
   };
 
   return (

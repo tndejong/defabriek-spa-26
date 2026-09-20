@@ -28,13 +28,7 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const hash = window.location.hash.slice(1);
     if (hash && ['home', 'park', 'kosten', 'abonnementen', 'open', 'verhaal', 'lessen', 'team', 'contact'].includes(hash)) {
-      const scroll = () => {
-        const element = document.getElementById(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      };
-      setTimeout(scroll, 100);
+      setTimeout(() => scrollToSection(hash), 100);
     }
   }, []);
 

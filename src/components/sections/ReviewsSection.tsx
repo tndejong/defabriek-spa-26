@@ -77,7 +77,7 @@ const ReviewsSection: React.FC<ReviewsSectionProps> = ({ language }) => {
         >
           <div
             ref={widgetRef}
-            className="embedsocial-hashtag"
+            className="embedsocial-hashtag min-h-[360px]"
             data-ref="64098d7fc9b98b5d4e0b441d05324371fe40a703"
             data-dynamicload="yes"
             data-lazyload="yes"
