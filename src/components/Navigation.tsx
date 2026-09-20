@@ -26,7 +26,7 @@ const Navigation: React.FC<NavigationProps> = ({
   const navItems = [
     { id: 'park', label: { nl: 'Park', en: 'Park', de: 'Park' } },
     { id: 'kosten', label: { nl: 'Kosten', en: 'Costs', de: 'Kosten' } },
-    { id: 'abonnementen', label: { nl: 'Abos', en: 'Plans', de: 'Abos' } },
+    { id: 'abonnementen', label: { nl: 'Abonnementen', en: 'Plans', de: 'Abos' } },
     { id: 'open', label: { nl: 'Open', en: 'Open', de: 'Öffnen' } },
     { id: 'verhaal', label: { nl: 'Verhaal', en: 'Story', de: 'Geschichte' } },
     { id: 'lessen', label: { nl: 'Lessen', en: 'Lessons', de: 'Lektionen' } },
@@ -97,12 +97,6 @@ const Navigation: React.FC<NavigationProps> = ({
                   </motion.button>
                 );
               })}
-              <a
-                href="/blog/"
-                className="relative px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors duration-200"
-              >
-                Blog
-              </a>
             </div>
 
             {/* Language Switcher & Mobile Menu */}
@@ -200,14 +194,6 @@ const Navigation: React.FC<NavigationProps> = ({
                   </motion.button>
                 );
               })}
-              <a
-                href="/blog/"
-                className="w-full block text-left px-4 py-3 text-base font-medium rounded-lg text-neutral-700 hover:bg-neutral-100 hover:text-primary-600 transition-all duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Blog
-              </a>
-
             </div>
           </motion.div>
         )}
